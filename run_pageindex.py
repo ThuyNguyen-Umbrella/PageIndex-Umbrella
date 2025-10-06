@@ -10,20 +10,20 @@ if __name__ == "__main__":
     parser.add_argument('--pdf_path', type=str, help='Path to the PDF file')
     parser.add_argument('--md_path', type=str, help='Path to the Markdown file')
 
-    parser.add_argument('--model', type=str, default='gpt-4o-2024-11-20', help='Model to use')
+    parser.add_argument('--model', type=str, default='Qwen/Qwen3-4B-Instruct-2507', help='Model to use')
 
-    parser.add_argument('--toc-check-pages', type=int, default=20, 
+    parser.add_argument('--toc-check-pages', type=int, default=0, 
                       help='Number of pages to check for table of contents (PDF only)')
-    parser.add_argument('--max-pages-per-node', type=int, default=10,
+    parser.add_argument('--max-pages-per-node', type=int, default=5,
                       help='Maximum number of pages per node (PDF only)')
     parser.add_argument('--max-tokens-per-node', type=int, default=20000,
                       help='Maximum number of tokens per node (PDF only)')
 
     parser.add_argument('--if-add-node-id', type=str, default='yes',
                       help='Whether to add node id to the node')
-    parser.add_argument('--if-add-node-summary', type=str, default='yes',
+    parser.add_argument('--if-add-node-summary', type=str, default='no',
                       help='Whether to add summary to the node')
-    parser.add_argument('--if-add-doc-description', type=str, default='no',
+    parser.add_argument('--if-add-doc-description', type=str, default='yes',
                       help='Whether to add doc description to the doc')
     parser.add_argument('--if-add-node-text', type=str, default='no',
                       help='Whether to add text to the node')

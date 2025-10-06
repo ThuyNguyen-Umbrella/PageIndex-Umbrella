@@ -16,14 +16,24 @@ import logging
 import yaml
 from pathlib import Path
 from types import SimpleNamespace as config
+import re
+
+from transformers import AutoTokenizer
+
+from pageindex.models import GPTModel, QwenModel
+
+# llm_model = GPTModel(model_name="gpt-4o-2024-11-20", api_key=os.getenv("CHATGPT_API_KEY"))
+llm_model = QwenModel()
 
 CHATGPT_API_KEY = os.getenv("CHATGPT_API_KEY")
 
-def count_tokens(text, model=None):
+def count_tokens(text, model="Qwen/Qwen3-4B-Instruct-2507"):
     if not text:
         return 0
-    enc = tiktoken.encoding_for_model(model)
-    tokens = enc.encode(text)
+    # enc = tiktoken.encoding_for_model(model)
+    # tokens = enc.encode(text)
+    tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+    tokens = tokenizer.encode(text)
     return len(tokens)
 
 def ChatGPT_API_with_finish_reason(model, prompt, api_key=CHATGPT_API_KEY, chat_history=None):
@@ -410,15 +420,23 @@ def add_preface_if_needed(data):
 
 
 
-def get_page_tokens(pdf_path, model="gpt-4o-2024-11-20", pdf_parser="PyPDF2"):
-    enc = tiktoken.encoding_for_model(model)
+def get_page_tokens(pdf_path, model="Qwen/Qwen3-4B-Instruct-2507", pdf_parser="PyPDF2"):
+    # enc = tiktoken.encoding_for_model(model)
+
+    if "gpt" in model.lower() or "openai" in model.lower():
+        enc = tiktoken.encoding_for_model(model)
+        encode_fn = lambda text: enc.encode(text)
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(model)
+        encode_fn = lambda text: tokenizer.encode(text)
+
     if pdf_parser == "PyPDF2":
         pdf_reader = PyPDF2.PdfReader(pdf_path)
         page_list = []
         for page_num in range(len(pdf_reader.pages)):
             page = pdf_reader.pages[page_num]
             page_text = page.extract_text()
-            token_length = len(enc.encode(page_text))
+            token_length = len(encode_fn(page_text))
             page_list.append((page_text, token_length))
         return page_list
     elif pdf_parser == "PyMuPDF":
@@ -430,7 +448,7 @@ def get_page_tokens(pdf_path, model="gpt-4o-2024-11-20", pdf_parser="PyPDF2"):
         page_list = []
         for page in doc:
             page_text = page.get_text()
-            token_length = len(enc.encode(page_text))
+            token_length = len(encode_fn(page_text))
             page_list.append((page_text, token_length))
         return page_list
     else:
@@ -533,7 +551,7 @@ def remove_structure_text(data):
 def check_token_limit(structure, limit=110000):
     list = structure_to_list(structure)
     for node in list:
-        num_tokens = count_tokens(node['text'], model='gpt-4o')
+        num_tokens = count_tokens(node['text'], model='Qwen/Qwen3-4B-Instruct-2507')
         if num_tokens > limit:
             print(f"Node ID: {node['node_id']} has {num_tokens} tokens")
             print("Start Index:", node['start_index'])
@@ -604,12 +622,13 @@ def add_node_text_with_labels(node, pdf_pages):
 
 async def generate_node_summary(node, model=None):
     prompt = f"""You are given a part of a document, your task is to generate a description of the partial document about what are main points covered in the partial document.
+    The description must be written in the same language as the partial document text.
 
     Partial Document Text: {node['text']}
     
     Directly return the description, do not include any other text.
     """
-    response = await ChatGPT_API_async(model, prompt)
+    response = await llm_model.generate_async(prompt)
     return response
 
 
@@ -654,7 +673,7 @@ def generate_doc_description(structure, model=None):
     
     Directly return the description, do not include any other text.
     """
-    response = ChatGPT_API(model, prompt)
+    response = llm_model.generate(prompt)
     return response
 
 
