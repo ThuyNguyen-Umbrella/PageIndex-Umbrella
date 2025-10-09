@@ -6,7 +6,6 @@ import unicodedata
 import os
 import argparse
 
-
 def generate_node_id():
     return str(uuid.uuid4())[:8]
 
@@ -47,7 +46,7 @@ def build_tree_with_toc(doc, outline):
         escaped = re.escape(clean)
         flexible = re.sub(r"\\ ", r"\\s+", escaped)
         pattern_str = r"(?:\d+(?:\.\d+)*\.\s*)?" + flexible
-        
+
         return re.compile(pattern_str, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
     def get_text_by_title(start_page, end_page, title, next_title=None):
@@ -152,14 +151,12 @@ def extract_tree(pdf_path):
     # return tree
 
 if __name__ == "__main__":
-    # parser = argparse.ArgumentParser(description="Extract and index PDF structure.")
-    # parser.add_argument("pdf_path", help="Path to the PDF file.")
-    # args = parser.parse_args()
+  
     pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/CDR_Verteidigung_in_der_Tiefe-V1.1_de.pdf"
-    # extract_tree(pdf_file)
-    doc = fitz.open(pdf_file)
-    tree = get_outline(doc)
-    with open('treewithinoutline.json', 'w', encoding='utf-8') as f:
-            json.dump(tree, f, indent=2)
+    extract_tree(pdf_file)
+    # doc = fitz.open(pdf_file)
+    # tree = get_outline(doc)
+    # with open('treewithinoutline.json', 'w', encoding='utf-8') as f:
+    #         json.dump(tree, f, indent=2)
     print('finished')
 

@@ -38,17 +38,6 @@ def get_outline(pdf_path):
         # toc_with_page_number = json.loads(toc_with_page_number)
         print('Parsing done')
         
-        # # Save results
-        # pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
-        # output_dir = './tests/results'
-        # output_file = f'{output_dir}/{pdf_name}_structure.json'
-        # os.makedirs(output_dir, exist_ok=True)
-        
-        # with open(output_file, 'w', encoding='utf-8') as f:
-        #     json.dump(toc_with_page_number, f, indent=2)
-        
-        # print(f'Tree structure saved to: {output_file}')
-        # # print('toc:', toc_with_page_number)
     return toc_with_page_number
 
 def get_text_from_range(doc, start, end):
@@ -157,11 +146,11 @@ def extract_tree(pdf_path):
     outline = get_outline(pdf_path)
 
     if not outline:
-        print("PDF doesn't have outline.")
+        print("can't create outline.")
         # tree = build_tree_without_toc(pdf_path)
         # return tree
     else:
-        print("PDF has outline.")
+        print("outline was created")
         tree = build_tree_with_toc(doc, outline)
 
     # Save results
