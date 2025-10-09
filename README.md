@@ -6,7 +6,7 @@ In dieser App wird eine Gliederung (Outline) von PDFs erzeugt.
 
 ![alt text](image.png)
 
-## Wie man das Programm ausführt
+## Wie man das Programm ausführt?
 
 ### 1. Install dependencies
 
