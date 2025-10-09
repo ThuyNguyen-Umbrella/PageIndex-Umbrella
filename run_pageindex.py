@@ -69,7 +69,7 @@ if __name__ == "__main__":
         
         # Save results
         pdf_name = os.path.splitext(os.path.basename(args.pdf_path))[0]    
-        output_dir = './results'
+        output_dir = './tests/results'
         output_file = f'{output_dir}/{pdf_name}_structure.json'
         os.makedirs(output_dir, exist_ok=True)
         

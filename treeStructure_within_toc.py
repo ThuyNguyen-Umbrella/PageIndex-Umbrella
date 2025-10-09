@@ -12,6 +12,7 @@ def generate_node_id():
 
 
 def get_outline(doc):
+    #[level, title, page_number, ...]
     return doc.get_toc(simple=True)
 
 
@@ -29,15 +30,25 @@ def build_tree_with_toc(doc, outline):
 
     def normalize(s: str) -> str:
         s = unicodedata.normalize("NFKC", s)
+        s = re.sub(r"\s+", " ", s)
         return s
+
+    # def make_pattern(title: str):
+    #     clean = re.sub(r"^\d+(?:\.\d+)*\.\s*", "", title).strip()
+
+    #     return re.compile(
+    #         r"(?:\d+(?:\.\d+)*\.\s*)?" + re.escape(clean),
+    #         flags=re.MULTILINE
+    #     )
 
     def make_pattern(title: str):
         clean = re.sub(r"^\d+(?:\.\d+)*\.\s*", "", title).strip()
 
-        return re.compile(
-            r"(?:\d+(?:\.\d+)*\.\s*)?" + re.escape(clean),
-            flags=re.MULTILINE
-        )
+        escaped = re.escape(clean)
+        flexible = re.sub(r"\\ ", r"\\s+", escaped)
+        pattern_str = r"(?:\d+(?:\.\d+)*\.\s*)?" + flexible
+        
+        return re.compile(pattern_str, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL)
 
     def get_text_by_title(start_page, end_page, title, next_title=None):
         text = "".join(full_text_by_page[start_page - 1:end_page])
@@ -144,6 +155,11 @@ if __name__ == "__main__":
     # parser = argparse.ArgumentParser(description="Extract and index PDF structure.")
     # parser.add_argument("pdf_path", help="Path to the PDF file.")
     # args = parser.parse_args()
-    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/11-strategies-of-a-world-class-cybersecurity-operations-center.pdf"
-    extract_tree(pdf_file)
+    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/CDR_Verteidigung_in_der_Tiefe-V1.1_de.pdf"
+    # extract_tree(pdf_file)
+    doc = fitz.open(pdf_file)
+    tree = get_outline(doc)
+    with open('treewithinoutline.json', 'w', encoding='utf-8') as f:
+            json.dump(tree, f, indent=2)
+    print('finished')
 

@@ -52,7 +52,7 @@ class QwenModel(BaseModel):
             # response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
 
             if include_finish_reason:
-                if len(response) >= 4000:
+                if len(response) >= 30000:
                     return response, "max_output_reached"
                 else:
                     return response, "finished"
@@ -82,7 +82,7 @@ class QwenModel(BaseModel):
             model_inputs = self.tokenizer([text], return_tensors="pt").to(self.client.device)
 
             # conduct text completion
-            generated_ids = self.client.generate(**model_inputs, max_new_tokens=1024)
+            generated_ids = self.client.generate(**model_inputs, max_new_tokens=2048)
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
 
             # parsing thinking content

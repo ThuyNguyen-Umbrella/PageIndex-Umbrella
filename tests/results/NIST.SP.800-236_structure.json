@@ -1,0 +1,98 @@
+[
+  {
+    "structure": "1.1",
+    "title": "Fiscal Year 2024 Annual Report for NIST Cybersecurity and Privacy ProgramNIST Special Publication 800",
+    "physical_index": 2,
+    "node_id": "0000"
+  },
+  {
+    "structure": "1.2",
+    "title": "TABLE OF CONTENTSIntroduction 4 - PRIORITY AREAS - Cryptography 5 Education & Workforce Emerging Technology7 9 Human -Centered Cybersecurity11 Identity & Access Management13 Privacy 15 Risk Management 17 Trusted Networks & Platforms 19 National Cybersecurity Center of Excellence (NCCoE )21 Stakeholder Engagement & Events24Foreword 4",
+    "physical_index": 3,
+    "node_id": "0001"
+  },
+  {
+    "structure": "1.2.1",
+    "title": "FOREWORD",
+    "physical_index": 4,
+    "node_id": "0002"
+  },
+  {
+    "structure": "1.2.2",
+    "title": "Cryptography",
+    "physical_index": 5,
+    "node_id": "0003"
+  },
+  {
+    "structure": "1.2.3",
+    "title": "Education & Workforce",
+    "physical_index": 7,
+    "node_id": "0004"
+  },
+  {
+    "structure": "1.2.4",
+    "title": "Emerging Technology",
+    "physical_index": 9,
+    "node_id": "0005"
+  },
+  {
+    "structure": "1.2.5",
+    "title": "Human- Centered Cybersecurity",
+    "physical_index": 11,
+    "node_id": "0006"
+  },
+  {
+    "structure": "1.2.6",
+    "title": "Identity & Access Management",
+    "physical_index": 13,
+    "node_id": "0007"
+  },
+  {
+    "structure": "1.2.7",
+    "title": "Privacy",
+    "physical_index": 15,
+    "node_id": "0008"
+  },
+  {
+    "structure": "1.2.8",
+    "title": "Risk Management",
+    "physical_index": 17,
+    "node_id": "0009"
+  },
+  {
+    "structure": "1.2.9",
+    "title": "Trusted Networks & Platforms",
+    "physical_index": 19,
+    "node_id": "0010"
+  },
+  {
+    "structure": "1.2.10",
+    "title": "National Cybersecurity Center of Excellence (NCCoE )",
+    "physical_index": 21,
+    "node_id": "0011"
+  },
+  {
+    "structure": "1.2.11",
+    "title": "Events & Stakeholder Engagement",
+    "physical_index": 24,
+    "node_id": "0012"
+  },
+  {
+    "structure": "1.2.12",
+    "title": "OPPORTUNITIES TO ENGAGE WITH NIST ON CYBERSECURITY & PRIVACY",
+    "physical_index": 26,
+    "node_id": "0013"
+  },
+  {
+    "structure": "1.2.13",
+    "title": "Authority",
+    "physical_index": 27,
+    "node_id": "0014"
+  },
+  {
+    "structure": "1.2.14",
+    "title": "Abstract",
+    "physical_index": 28,
+    "node_id": "0015"
+  }
+]

@@ -1,0 +1,164 @@
+[
+  {
+    "structure": "1",
+    "title": "Phishing attacks: defending your organisation",
+    "physical_index": 1,
+    "node_id": "0000"
+  },
+  {
+    "structure": "1.1",
+    "title": "Introduction",
+    "physical_index": 1,
+    "node_id": "0001"
+  },
+  {
+    "structure": "1.2",
+    "title": "What is phishing?",
+    "physical_index": 1,
+    "node_id": "0002"
+  },
+  {
+    "structure": "1.3",
+    "title": "Why you need a multi-layered approach",
+    "physical_index": 2,
+    "node_id": "0003"
+  },
+  {
+    "structure": "1.4",
+    "title": "The mitigations below require a combination of technological, process, and people-based approaches",
+    "physical_index": 2,
+    "node_id": "0004"
+  },
+  {
+    "structure": "1.5",
+    "title": "The problems with phishing simulations",
+    "physical_index": 3,
+    "node_id": "0005"
+  },
+  {
+    "structure": "1.6",
+    "title": "Infographic: Summary of layered defences (download available below)",
+    "physical_index": 4,
+    "node_id": "0006"
+  },
+  {
+    "structure": "1.7",
+    "title": "Four layers of mitigation",
+    "physical_index": 4,
+    "node_id": "0007"
+  },
+  {
+    "structure": "1.8",
+    "title": "Layer 1: Make it difficult for attackers to reach your users",
+    "physical_index": 5,
+    "node_id": "0008"
+  },
+  {
+    "structure": "1.9",
+    "title": "Layer 2: Help users identify and report suspected phishing emails",
+    "physical_index": 5,
+    "node_id": "0009"
+  },
+  {
+    "structure": "1.10",
+    "title": "Layer 3: Protect your organisation from the effects of 'successful' phishing emails",
+    "physical_index": 5,
+    "node_id": "0010"
+  },
+  {
+    "structure": "1.11",
+    "title": "Layer 4: Respond quickly to incidents",
+    "physical_index": 5,
+    "node_id": "0011"
+  },
+  {
+    "structure": "1.12",
+    "title": "Detect incidents quickly",
+    "physical_index": 5,
+    "node_id": "0012"
+  },
+  {
+    "structure": "1.13",
+    "title": "How do I do this?",
+    "physical_index": 5,
+    "node_id": "0013"
+  },
+  {
+    "structure": "1.14",
+    "title": "Have an incident response plan",
+    "physical_index": 5,
+    "node_id": "0014"
+  },
+  {
+    "structure": "1.15",
+    "title": "How do I do this?",
+    "physical_index": 5,
+    "node_id": "0015"
+  },
+  {
+    "structure": "1.16",
+    "title": "Incident response plans should be practised before an incident occurs",
+    "physical_index": 5,
+    "node_id": "0016"
+  },
+  {
+    "structure": "1.17",
+    "title": "Case study: example of multi-layered phishing mitigations",
+    "physical_index": 6,
+    "node_id": "0017"
+  },
+  {
+    "structure": "1.18",
+    "title": "Infographic: Multi-layered phishing mitigations (download available below)",
+    "physical_index": 7,
+    "node_id": "0018"
+  },
+  {
+    "structure": "1.19",
+    "title": "Summary of the phishing attack:",
+    "physical_index": 7,
+    "node_id": "0019"
+  },
+  {
+    "structure": "1.20",
+    "title": "PUBLISHED 5 February 2018",
+    "physical_index": 8,
+    "node_id": "0020"
+  },
+  {
+    "structure": "1.21",
+    "title": "REVIEWED 13 February 2024",
+    "physical_index": 8,
+    "node_id": "0021"
+  },
+  {
+    "structure": "1.22",
+    "title": "VERSION 2.0",
+    "physical_index": 8,
+    "node_id": "0022"
+  },
+  {
+    "structure": "1.23",
+    "title": "WRITTEN FOR Small & medium sized organisations",
+    "physical_index": 8,
+    "node_id": "0023"
+  },
+  {
+    "structure": "1.24",
+    "title": "Large organisations",
+    "physical_index": 8,
+    "node_id": "0024"
+  },
+  {
+    "structure": "1.25",
+    "title": "Public sector",
+    "physical_index": 8,
+    "node_id": "0025"
+  },
+  {
+    "structure": "1.26",
+    "title": "Cyber security professionals",
+    "physical_index": 8,
+    "node_id": "0026"
+  }
+]

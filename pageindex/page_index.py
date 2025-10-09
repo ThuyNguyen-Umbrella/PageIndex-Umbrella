@@ -1081,9 +1081,9 @@ def page_index_main(doc, opt=None):
 
     print('Parsing PDF...')
     page_list = get_page_tokens(doc)
-    print('page_list:', page_list)
-    print('total_page_number', len(page_list))
-    print('total_token', sum([page[1] for page in page_list]))
+    # print('page_list:', page_list)
+    # print('total_page_number', len(page_list))
+    # print('total_token', sum([page[1] for page in page_list]))
 
     logger.info({'total_page_number': len(page_list)})
     logger.info({'total_token': sum([page[1] for page in page_list])})

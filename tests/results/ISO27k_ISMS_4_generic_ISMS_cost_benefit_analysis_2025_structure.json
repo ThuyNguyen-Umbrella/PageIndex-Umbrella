@@ -1,0 +1,110 @@
+[
+  {
+    "structure": "1",
+    "title": "Cost -benefit analysis for an Information Security Management System (ISMS) based on the ISO/IEC 27000 standards",
+    "physical_index": 1,
+    "node_id": "0000"
+  },
+  {
+    "structure": "1.1",
+    "title": "Executive summary",
+    "physical_index": 1,
+    "node_id": "0001"
+  },
+  {
+    "structure": "1.2",
+    "title": "ISMS b usiness b enefits",
+    "physical_index": 1,
+    "node_id": "0002"
+  },
+  {
+    "structure": "1.3",
+    "title": "ISMS implementation and operational costs",
+    "physical_index": 1,
+    "node_id": "0003"
+  },
+  {
+    "structure": "1.4",
+    "title": "ISMS business case",
+    "physical_index": 2,
+    "node_id": "0004"
+  },
+  {
+    "structure": "1.4.1",
+    "title": "Introduction , scope and purpose",
+    "physical_index": 2,
+    "node_id": "0005"
+  },
+  {
+    "structure": "1.4.2",
+    "title": "ISMS business benefits",
+    "physical_index": 2,
+    "node_id": "0006"
+  },
+  {
+    "structure": "1.4.2.1",
+    "title": "Information security risk reduction",
+    "physical_index": 2,
+    "node_id": "0007"
+  },
+  {
+    "structure": "1.4.2.2",
+    "title": "Benefits of standardisation",
+    "physical_index": 3,
+    "node_id": "0008"
+  },
+  {
+    "structure": "1.4.2.3",
+    "title": "Benefits of a structured approach",
+    "physical_index": 3,
+    "node_id": "0009"
+  },
+  {
+    "structure": "1.4.2.4",
+    "title": "Benefits of certification",
+    "physical_index": 4,
+    "node_id": "0010"
+  },
+  {
+    "structure": "1.4.2.5",
+    "title": "Benefits of conformity and compliance",
+    "physical_index": 4,
+    "node_id": "0011"
+  },
+  {
+    "structure": "1.4.3",
+    "title": "ISMS implementation and operational costs",
+    "physical_index": 5,
+    "node_id": "0012"
+  },
+  {
+    "structure": "1.4.3.1",
+    "title": "ISMS implementation project management costs",
+    "physical_index": 5,
+    "node_id": "0013"
+  },
+  {
+    "structure": "1.4.3.2",
+    "title": "Other ISMS implementation costs",
+    "physical_index": 5,
+    "node_id": "0014"
+  },
+  {
+    "structure": "1.4.4",
+    "title": "Certification costs",
+    "physical_index": 6,
+    "node_id": "0015"
+  },
+  {
+    "structure": "1.4.5",
+    "title": "Ongoing ISMS operation and maintenance costs",
+    "physical_index": 6,
+    "node_id": "0016"
+  },
+  {
+    "structure": "1.4.6",
+    "title": "Conclusion",
+    "physical_index": 6,
+    "node_id": "0017"
+  }
+]
