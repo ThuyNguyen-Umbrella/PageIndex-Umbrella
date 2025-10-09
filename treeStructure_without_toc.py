@@ -102,11 +102,12 @@ def build_tree_with_toc(doc, outline):
     
     for i, value in enumerate(outline):
         print('type of value', type(value))
-        print('value:', value)
+        # print('value:', value)
 
         if isinstance(value, str):
             value = json.loads(value)
             print('type:', type(value))
+            print('value', value)
 
         if i < len(outline) -1:
             end_idx = outline[i + 1]['physical_index']
@@ -155,7 +156,7 @@ def extract_tree(pdf_path):
 
     # Save results
         pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
-        output_dir = './results'
+        output_dir = './tests/results'
         output_file = f'{output_dir}/{pdf_name}_structure.json'
         os.makedirs(output_dir, exist_ok=True)
         

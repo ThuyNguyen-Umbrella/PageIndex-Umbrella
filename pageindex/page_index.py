@@ -967,7 +967,7 @@ async def meta_processor(page_list, mode=None, toc_content=None, toc_page_list=N
         toc_with_page_number = process_toc_no_page_numbers(toc_content, toc_page_list, page_list, model=opt.model, logger=logger)
     else:
         toc_with_page_number = process_no_toc(page_list, start_index=start_index, model=opt.model, logger=logger)
-    print("toc_with_number:", toc_with_page_number)  
+    # print("toc_with_number:", toc_with_page_number)  
     return toc_with_page_number       
     # toc_with_page_number = [item for item in toc_with_page_number if item.get('physical_index') is not None] 
     

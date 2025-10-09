@@ -1,19 +1,29 @@
+import os
 import fitz
-import treeStructure_within_toc 
+import treeStructure_within_toc
 import treeStructure_without_toc
 
-def main(pdf_path):
+def process_pdf(pdf_path):
+    """Process a single PDF file."""
+    print(f"\nProcessing: {pdf_path}")
     doc = fitz.open(pdf_path)
-    
+
+    # Check if the PDF has a table of contents (outline)
     if doc.get_toc(simple=True):
-        print('PDF has outline.')
+        print('PDF has an outline.')
         treeStructure_within_toc.extract_tree(pdf_path)
     else:
         print('PDF has no outline.')
         treeStructure_without_toc.extract_tree(pdf_path)
-    
+
+def main(folder_path):
+    """Process all PDF files within a given folder."""
+    for filename in os.listdir(folder_path):
+        # Only process files ending with .pdf (case insensitive)
+        if filename.lower().endswith(".pdf"):
+            pdf_path = os.path.join(folder_path, filename)
+            process_pdf(pdf_path)
+
 if __name__ == "__main__":
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/TR-03121-1_Biometrics_7_0_draft2.pdf'
-    main(pdf_path)
-        
-        
+    folder_path = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs"
+    main(folder_path)

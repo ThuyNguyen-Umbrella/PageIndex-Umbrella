@@ -152,7 +152,7 @@ def extract_tree(pdf_path):
 
 if __name__ == "__main__":
   
-    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/CDR_Verteidigung_in_der_Tiefe-V1.1_de.pdf"
+    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/TR-03121-1_Biometrics_7_0_draft2.pdf"
     extract_tree(pdf_file)
     # doc = fitz.open(pdf_file)
     # tree = get_outline(doc)

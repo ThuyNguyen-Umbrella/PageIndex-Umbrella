@@ -1,110 +1,132 @@
 [
   {
-    "structure": "1",
     "title": "Cost -benefit analysis for an Information Security Management System (ISMS) based on the ISO/IEC 27000 standards",
-    "physical_index": 1,
-    "node_id": "0000"
-  },
-  {
-    "structure": "1.1",
-    "title": "Executive summary",
-    "physical_index": 1,
-    "node_id": "0001"
-  },
-  {
-    "structure": "1.2",
-    "title": "ISMS b usiness b enefits",
-    "physical_index": 1,
-    "node_id": "0002"
-  },
-  {
-    "structure": "1.3",
-    "title": "ISMS implementation and operational costs",
-    "physical_index": 1,
-    "node_id": "0003"
-  },
-  {
-    "structure": "1.4",
-    "title": "ISMS business case",
-    "physical_index": 2,
-    "node_id": "0004"
-  },
-  {
-    "structure": "1.4.1",
-    "title": "Introduction , scope and purpose",
-    "physical_index": 2,
-    "node_id": "0005"
-  },
-  {
-    "structure": "1.4.2",
-    "title": "ISMS business benefits",
-    "physical_index": 2,
-    "node_id": "0006"
-  },
-  {
-    "structure": "1.4.2.1",
-    "title": "Information security risk reduction",
-    "physical_index": 2,
-    "node_id": "0007"
-  },
-  {
-    "structure": "1.4.2.2",
-    "title": "Benefits of standardisation",
-    "physical_index": 3,
-    "node_id": "0008"
-  },
-  {
-    "structure": "1.4.2.3",
-    "title": "Benefits of a structured approach",
-    "physical_index": 3,
-    "node_id": "0009"
-  },
-  {
-    "structure": "1.4.2.4",
-    "title": "Benefits of certification",
-    "physical_index": 4,
-    "node_id": "0010"
-  },
-  {
-    "structure": "1.4.2.5",
-    "title": "Benefits of conformity and compliance",
-    "physical_index": 4,
-    "node_id": "0011"
-  },
-  {
-    "structure": "1.4.3",
-    "title": "ISMS implementation and operational costs",
-    "physical_index": 5,
-    "node_id": "0012"
-  },
-  {
-    "structure": "1.4.3.1",
-    "title": "ISMS implementation project management costs",
-    "physical_index": 5,
-    "node_id": "0013"
-  },
-  {
-    "structure": "1.4.3.2",
-    "title": "Other ISMS implementation costs",
-    "physical_index": 5,
-    "node_id": "0014"
-  },
-  {
-    "structure": "1.4.4",
-    "title": "Certification costs",
-    "physical_index": 6,
-    "node_id": "0015"
-  },
-  {
-    "structure": "1.4.5",
-    "title": "Ongoing ISMS operation and maintenance costs",
-    "physical_index": 6,
-    "node_id": "0016"
-  },
-  {
-    "structure": "1.4.6",
-    "title": "Conclusion",
-    "physical_index": 6,
-    "node_id": "0017"
+    "node_id": "ca9c0f4e",
+    "start_index": 1,
+    "text": "Cost-benefit analysis for an Information Security Management System (ISMS) based on the ISO/IEC 27000 standards Version 2025 Executive summary ISMS business benefits The primary benefit of the ISMS is to bring information risk and security under firm management control, allowing systematic security improvement where appropriate. Better information security, in turn, will reduce the risk (probability of occurrence and/or adverse impacts) of incidents, cutting incident-related losses and costs. ISMS implementation and operational costs Most of the costs associated with information security would be incurred anyway since information security is a business and compliance imperative. The additional costs specifically relating to the ISMS mainly relate to the implementation project, changes to governance and security management arrangements, and certification (optional).",
+    "nodes": [
+      {
+        "title": "Executive summary",
+        "node_id": "972d6cdc",
+        "start_index": 1,
+        "text": "Executive summary ISMS business benefits The primary benefit of the ISMS is to bring information risk and security under firm management control, allowing systematic security improvement where appropriate. Better information security, in turn, will reduce the risk (probability of occurrence and/or adverse impacts) of incidents, cutting incident-related losses and costs. ISMS implementation and operational costs Most of the costs associated with information security would be incurred anyway since information security is a business and compliance imperative. The additional costs specifically relating to the ISMS mainly relate to the implementation project, changes to governance and security management arrangements, and certification (optional).",
+        "nodes": []
+      },
+      {
+        "title": "ISMS b usiness b enefits",
+        "node_id": "814c049c",
+        "start_index": 1,
+        "text": "Cost-benefit analysis for an Information Security Management System (ISMS) based on the ISO/IEC 27000 standards Version 2025 Executive summary ISMS business benefits The primary benefit of the ISMS is to bring information risk and security under firm management control, allowing systematic security improvement where appropriate. Better information security, in turn, will reduce the risk (probability of occurrence and/or adverse impacts) of incidents, cutting incident-related losses and costs. ISMS implementation and operational costs Most of the costs associated with information security would be incurred anyway since information security is a business and compliance imperative. The additional costs specifically relating to the ISMS mainly relate to the implementation project, changes to governance and security management arrangements, and certification (optional).",
+        "nodes": []
+      },
+      {
+        "title": "ISMS implementation and operational costs",
+        "node_id": "f3e8c0c8",
+        "start_index": 1,
+        "text": "ISMS implementation and operational costs Most of the costs associated with information security would be incurred anyway since information security is a business and compliance imperative. The additional costs specifically relating to the ISMS mainly relate to the implementation project, changes to governance and security management arrangements, and certification (optional).",
+        "nodes": []
+      },
+      {
+        "title": "ISMS business case",
+        "node_id": "48bcb393",
+        "start_index": 2,
+        "text": "ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 2 of 6 Introduction, scope and purpose Adopting the ISO/IEC 27000 information security standards (commonly known as \u201cISO27k\u201d) generally starts with a discrete implementation project to specify, design, develop and launch the Information Security Management System (ISMS). The ISMS systematically determines and aligns the organisation\u2019s information security practices with its information risks. Once up to speed, the ISMS operates indefinitely, directing and controlling information security using the its governance arrangements, management processes, strategies and policies. This paper identifies the business implications of an ISO27k ISMS as a set of typical or commonplace benefits and costs. It is generic since we have no knowledge of your specific information assets, risks or security controls. We have provided checkboxes for you to select items that you feel are or are not relevant. This is not a totally comprehensive list however, so you may well think of others to add. Feel free to use this template both as a source of inspiration for your own ISMS business case, budget request or project proposal to management, and as a framework for measuring and optimising the net value of your ISMS over the long term (e.g. combining ISACA\u2019s Val IT approach with PRAGMATIC metrics). ISMS business benefits These are the ways in which an ISO27k ISMS typically benefits the organisation. Information security risk reduction \uf0f0 Strengthens existing information security control environment by (re-)emphasising business information security control requirements, upgrading current information security policies, controls etc. and providing stimulus to review and where necessary improve information security controls periodically \u2013 risk reduction \uf0f0 Systematic, comprehensive, well-structured approach increases the likelihood that all relevant information security threats, vulnerabilities and impacts are identified, assessed and treated rationally \u2013 risk reduction \uf0f0 Professional, standardised and rational risk management approach gives consistency across multiple IT systems and business processes over time, and addresses information risks according to their relative priorities or significance \u2013 risk reduction \uf0f0 A proactive, forward-thinking approach increases the organisation\u2019s resilience and adaptability in the face of significant uncertainties regarding cyber threats, the effectiveness and coverage of information security, competitive pressures etc. \u2013 risk reduction \uf0f0 Increases our ability to share certain information risks selectively with insurers or other third parties, and may facilitate negotiating reduced insurance premiums as key controls are implemented and managed \u2013 cost saving \uf0f0 Managers and staff become increasingly familiar with information security terms, risks and controls, more risk-aware, more competent and willing to respond appropriately \u2013 risk reduction",
+        "nodes": [
+          {
+            "title": "Introduction , scope and purpose",
+            "node_id": "14f78106",
+            "start_index": 2,
+            "text": "ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 2 of 6 Introduction, scope and purpose Adopting the ISO/IEC 27000 information security standards (commonly known as \u201cISO27k\u201d) generally starts with a discrete implementation project to specify, design, develop and launch the Information Security Management System (ISMS). The ISMS systematically determines and aligns the organisation\u2019s information security practices with its information risks. Once up to speed, the ISMS operates indefinitely, directing and controlling information security using the its governance arrangements, management processes, strategies and policies. This paper identifies the business implications of an ISO27k ISMS as a set of typical or commonplace benefits and costs. It is generic since we have no knowledge of your specific information assets, risks or security controls. We have provided checkboxes for you to select items that you feel are or are not relevant. This is not a totally comprehensive list however, so you may well think of others to add. Feel free to use this template both as a source of inspiration for your own ISMS business case, budget request or project proposal to management, and as a framework for measuring and optimising the net value of your ISMS over the long term (e.g. combining ISACA\u2019s Val IT approach with PRAGMATIC metrics). ISMS business benefits These are the ways in which an ISO27k ISMS typically benefits the organisation. Information security risk reduction \uf0f0 Strengthens existing information security control environment by (re-)emphasising business information security control requirements, upgrading current information security policies, controls etc. and providing stimulus to review and where necessary improve information security controls periodically \u2013 risk reduction \uf0f0 Systematic, comprehensive, well-structured approach increases the likelihood that all relevant information security threats, vulnerabilities and impacts are identified, assessed and treated rationally \u2013 risk reduction \uf0f0 Professional, standardised and rational risk management approach gives consistency across multiple IT systems and business processes over time, and addresses information risks according to their relative priorities or significance \u2013 risk reduction \uf0f0 A proactive, forward-thinking approach increases the organisation\u2019s resilience and adaptability in the face of significant uncertainties regarding cyber threats, the effectiveness and coverage of information security, competitive pressures etc. \u2013 risk reduction \uf0f0 Increases our ability to share certain information risks selectively with insurers or other third parties, and may facilitate negotiating reduced insurance premiums as key controls are implemented and managed \u2013 cost saving \uf0f0 Managers and staff become increasingly familiar with information security terms, risks and controls, more risk-aware, more competent and willing to respond appropriately \u2013 risk reduction",
+            "nodes": []
+          },
+          {
+            "title": "ISMS business benefits",
+            "node_id": "00f2211c",
+            "start_index": 2,
+            "text": "ISMS business benefits These are the ways in which an ISO27k ISMS typically benefits the organisation.",
+            "nodes": [
+              {
+                "title": "Information security risk reduction",
+                "node_id": "3e435795",
+                "start_index": 2,
+                "text": "Information security risk reduction \uf0f0 Strengthens existing information security control environment by (re-)emphasising business information security control requirements, upgrading current information security policies, controls etc. and providing stimulus to review and where necessary improve information security controls periodically \u2013 risk reduction \uf0f0 Systematic, comprehensive, well-structured approach increases the likelihood that all relevant information security threats, vulnerabilities and impacts are identified, assessed and treated rationally \u2013 risk reduction \uf0f0 Professional, standardised and rational risk management approach gives consistency across multiple IT systems and business processes over time, and addresses information risks according to their relative priorities or significance \u2013 risk reduction \uf0f0 A proactive, forward-thinking approach increases the organisation\u2019s resilience and adaptability in the face of significant uncertainties regarding cyber threats, the effectiveness and coverage of information security, competitive pressures etc. \u2013 risk reduction \uf0f0 Increases our ability to share certain information risks selectively with insurers or other third parties, and may facilitate negotiating reduced insurance premiums as key controls are implemented and managed \u2013 cost saving \uf0f0 Managers and staff become increasingly familiar with information security terms, risks and controls, more risk-aware, more competent and willing to respond appropriately \u2013 risk reduction ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 3 of 6",
+                "nodes": []
+              },
+              {
+                "title": "Benefits of standardisation",
+                "node_id": "7fb4ba61",
+                "start_index": 3,
+                "text": "Benefits of standardisation \uf0f0 Consistency of approach both internally (throughout the organisation, over time) and externally (the ISO27k standards are popular internationally) \u2013 risk reduction \uf0f0 Provides a security baseline i.e. a solid platform of commonplace good practice information security controls on which to build or layer additional controls as appropriate \u2013 cost saving, risk reduction and maturity \uf0f0 Generally applicable and hence re-usable across multiple departments, functions, business units and organisations without significant changes, avoids having to specify and justify the same basic controls repeatedly in every situation \u2013 cost saving \uf0f0 Allows management to prioritise, concentrating efforts and focusing resources on adequately securing particularly valuable, vulnerable or vital information assets \u2013 cost saving \uf0f0 Based on globally recognised and well-respected security standards \u2013 brand value \uf0f0 ISO27k standards are being actively developed and maintained by experts, reflecting new security challenges (such as cloud computing, IoT and AI) \u2013 risk reduction and brand value \uf0f0 Formally defines specialist terms and important concepts, facilitating the discussion, analysis and consistent evaluation of information risk, security etc. by various people at different times \u2013 cost saving, maturity and risk reduction \uf0f0 Allows unnecessary, inappropriate or excessive controls to be relaxed or removed without unduly compromising valuable information assets \u2013 cost saving \uf0f0 Being risk-based, the ISO27k approach is flexible enough to suit any organisation, as opposed to more rigid and prescriptive standards such as PCI-DSS \u2013 cost saving and risk reduction",
+                "nodes": []
+              },
+              {
+                "title": "Benefits of a structured approach",
+                "node_id": "355f4a27",
+                "start_index": 3,
+                "text": "Benefits of a structured approach \uf0f0 A logically consistent and reasonably comprehensive framework/structure for disparate information risks and security controls \u2013 cost saving and risk reduction \uf0f0 Impetus to review systems, data and information flows with potential to reduce overhead of duplicated and other unnecessary systems/data/processes and improve the quality of information (business process re-engineering) \u2013 cost saving \uf0f0 A mechanism for measuring performance and incrementally raising the information security status over the long term, growing/adapting the ISMS in line with the evolving business and its information risks e.g. new technologies, new products and markets, new partners \u2013 cost saving, risk reduction and maturity \uf0f0 A coherent set of information security policies, procedures and guidelines, tailored to the organisation, formally approved by management, consistently implemented and proactively maintained \u2013 maturity and risk reduction \uf0f0 Clarity in various important areas such as strategy and policy, risk management, asset ownership, r\u00f4les and responsibilities, compliance and conformity requirements, even something as simple as where to go for information and guidance - maturity ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 4 of 6",
+                "nodes": []
+              },
+              {
+                "title": "Benefits of certification",
+                "node_id": "cdb2d8d3",
+                "start_index": 4,
+                "text": "Benefits of certification \uf0f0 Formal confirmation by an independent, competent assessor that the organisation\u2019s ISMS fulfils the requirements of ISO/IEC 27001 \u2013 risk reduction, maturity and brand value \uf0f0 Provides assurance regarding an organisation\u2019s information security management capabilities (and, by implication, its information security status) for employees, owners, business partners, suppliers, regulators, auditors and other stakeholders, without requiring numerous individual evaluations, assessments or audits, or having to rely purely on management assertions and assumptions \u2013 cost saving, risk reduction and brand value \uf0f0 Positions the organisation as a secure, trustworthy and well-managed business partner, employer and investment opportunity \u2013 brand value \uf0f0 Establishes management\u2019s explicit commitment to information security for corporate governance, compliance, safety, privacy, due diligence, business and ethical purposes \u2013 cost saving, risk reduction and brand value",
+                "nodes": []
+              },
+              {
+                "title": "Benefits of conformity and compliance",
+                "node_id": "8d5c3147",
+                "start_index": 4,
+                "text": "Benefits of conformity and compliance \uf0f0 Facilitates, supports, enables and encourages compliance with information security, privacy, safety, governance and other applicable, mandatory laws and regulations, plus conformity with discretionary requirements in strategies, policies, contracts and agreements \u2013 maturity, risk reduction and brand value \uf0f0 Provides an overarching framework for information risk and security management addressing a broad range of both external and internal requirements, leveraging the common elements \u2013 cost saving and risk reduction \uf0f0 Involves compiling, evaluating and maintaining pertinent information (inventories) concerning information assets, vulnerabilities, threats, security controls etc. \u2013 maturity \uf0f0 Stakeholders or authorities may at some point insist that the organisation complies with ISO27k as a condition of business or to satisfy privacy and other laws, whereas implementing and conforming with it on management\u2019s own terms and timescales is a proactive, cost- effective approach e.g. prioritising aspects that offer the greatest business value; taking advantage of planned IT system or facility upgrades to improve security at minimal extra cost and disruption \u2013 brand value, maturity and cost saving \uf0f0 Demonstrably adopting and investing in globally-recognised good practices provides management with a valid, legitimate defence in case of legal/regulatory enforcement or stakeholder claims following information security or privacy incidents \u2013 cost saving, brand value and risk reduction ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 5 of 6",
+                "nodes": []
+              }
+            ]
+          },
+          {
+            "title": "ISMS implementation and operational costs",
+            "node_id": "2c7bb109",
+            "start_index": 5,
+            "text": "ISMS implementation and operational costs These are the main costs associated with the management system elements of an ISO27k ISMS",
+            "nodes": [
+              {
+                "title": "ISMS implementation project management costs",
+                "node_id": "a8dab696",
+                "start_index": 5,
+                "text": "1. ISMS implementation project management costs \uf0f0 Prepare an overall information risk and security management strategy, aligned with other business strategies, objectives and imperatives as well as ISO27k \uf0f0 Plan the implementation project \uf0f0 Obtain management approval to allocate the necessary resources \uf0f0 Identify, recruit, direct and support a suitable project manager (usually the person who will ultimately become the CISO or Information Security Manager) and team members \u2013 whether full or part-time, consultants, contractors, temps or permanent employees \uf0f0 Hold regular project management meetings involving key stakeholders, and liaise as necessary with various other interested parties, parallel projects, managers, business partners etc. \uf0f0 Track actual progress against the plans and circulate regular status reports/progress updates \uf0f0 Identify and deal with project risks and changes",
+                "nodes": []
+              },
+              {
+                "title": "Other ISMS implementation costs",
+                "node_id": "ddc7f821",
+                "start_index": 5,
+                "text": "Other ISMS implementation costs \uf0f0 Acquire (buy or license) the standards \uf0f0 Compile and validate an inventory of information assets in scope of the ISMS \uf0f0 Identify and assess risks to information assets, evaluate and prioritise them \uf0f0 Determine how to treat information risks (i.e. mitigate them using suitable security controls, avoid them, share them and/or accept them) \uf0f0 (Re-)design the security architecture and security baseline \uf0f0 Review/update/re-issue existing and prepare/issue new information security policies, standards, procedures, guidelines, contractual terms etc. \uf0f0 Rationalise, implement additional, upgrade, supplement or retire existing security controls and other risk treatments as appropriate \uf0f0 Conduct security awareness and training, such as introducing new security policies and procedures and fostering the corporate security culture \uf0f0 Investigate and apply sanctions for serious non-conformities 1 Note that the ISO27k standards recommend but do not require any specific information security controls \u2013 it is up to management to evaluate and treat the organisation\u2019s information security risks as appropriate. Therefore, the costs of any information security controls that are implemented through the ISMS as a result of such management decisions are not separately identified in this template since they would presumably have been required even without the ISMS in place. However, you may prefer to identify any significant security investments that you know will be required, whether within the ISMS proposal/business case or separate as risk reduction/security improvement project proposals. ISMS business case Copyright \u00a9 2025 IsecT Ltd. Page 6 of 6",
+                "nodes": []
+              }
+            ]
+          },
+          {
+            "title": "Certification costs",
+            "node_id": "5938df81",
+            "start_index": 6,
+            "text": "Certification costs \uf0f0 Select a suitable accredited certification body, negotiating and contracting for stage 1 (pre- certification) and stage 2 (certification) audits, and potentially annual surveillance audits and 3-yearly full audits to maintain the certification indefinitely \uf0f0 Risk of failing to achieve certification at first attempt2 \uf0f0 Staff/management time expended during annual surveillance visits",
+            "nodes": []
+          },
+          {
+            "title": "Ongoing ISMS operation and maintenance costs",
+            "node_id": "d1ccf319",
+            "start_index": 6,
+            "text": "Ongoing ISMS operation and maintenance costs \uf0f0 Periodic ISMS internal audits and management reviews \uf0f0 Preventive and corrective actions to address potential and actual issues \uf0f0 Continual improvement by identifying and seizing opportunities that arise \uf0f0 Periodic review and maintenance of information security policies, standards, procedures, guidelines, contractual terms etc. \uf0f0 Costs to maintain certification (annual surveillance audits, 3-yearly recertification audits)3",
+            "nodes": []
+          },
+          {
+            "title": "Conclusion",
+            "node_id": "a0e0c822",
+            "start_index": 6,
+            "text": "Conclusion Although we admit a strong bias, we honestly believe the business benefits of an ISO27k ISMS far outweigh the costs for most organisations. By all means contact the author Gary@isect.com or visit www.SecAware.com and www.ISO27001security.com for more. An ISMS business case template building on this paper is provided in the SecAware ISMS Take-off package, along with other materials for the management audience \u2013 briefings, advisories, policies, procedures, job descriptions, audit checklists etc. Document history 2025: revised several items. Added \u201cmaturity\u201d as a benefit class. Added \u2018clarity\u2019 as a maturity benefit. 2023: minor but important correction re accreditation. Change to UK/NZ English. 2022: revised for ISO/IEC 27001:2022 and ISO/IEC 27002:2022. Red/green colouring added. 2012 and 2017: revisions. 2008: first public release of the generic business case as part of the free ISO27k Toolkit. 1995-2008: underlying concept gradually developed and refined by IsecT Ltd. through a number of project proposals, security strategies etc. with various organisations. Copyright This work is copyright \u00a9 2025 IsecT Ltd. Please contact the author, Gary Hinson for details. 2 Since any show-stoppers raised by the auditors probably represent unacceptable information risks, this item could equally be a risk-reduction benefit! 3 Certification-related costs may be shared across other ISO management systems",
+            "nodes": []
+          }
+        ]
+      }
+    ]
   }
 ]
