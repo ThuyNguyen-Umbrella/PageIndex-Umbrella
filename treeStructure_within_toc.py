@@ -136,6 +136,8 @@ def extract_tree(pdf_path):
     else:
         print("PDF has outline.")
         tree = build_tree_with_toc(doc, outline)
+        file_name = os.path.basename(pdf_path)
+        tree.insert(0, {"file_name": file_name})
 
     # Save results
         pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
@@ -152,7 +154,7 @@ def extract_tree(pdf_path):
 
 if __name__ == "__main__":
   
-    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/TR-03121-1_Biometrics_7_0_draft2.pdf"
+    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/11-strategies-of-a-world-class-cybersecurity-operations-center.pdf"
     extract_tree(pdf_file)
     # doc = fitz.open(pdf_file)
     # tree = get_outline(doc)

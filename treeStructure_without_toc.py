@@ -153,6 +153,8 @@ def extract_tree(pdf_path):
     else:
         print("outline was created")
         tree = build_tree_with_toc(doc, outline)
+        file_name = os.path.basename(pdf_path)
+        tree.insert(0, {"file_name": file_name})
 
     # Save results
         pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
@@ -176,7 +178,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/P4.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/anssi_back to basics_hygiene_mobile_phones_1.0.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'

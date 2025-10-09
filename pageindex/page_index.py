@@ -567,12 +567,19 @@ def generate_toc_init(part, model=None):
     Directly return the final JSON structure. Do not output anything else."""
 
     prompt = prompt + '\nGiven text\n:' + part
-    response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
-    # print("response:", response)
-    if finish_reason == 'finished':
-         return extract_json(response)
-    else:
-        raise Exception(f'finish reason: {finish_reason}')
+    for attempt in range(1, 4):
+        try:
+            response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
+            # print("response:", response)
+            if finish_reason == 'finished':
+                return extract_json(response)
+            else:
+                print(f'finish reason: {finish_reason}')
+        except Exception as e:
+            print(f'fail reason: {e}')
+        if attempt < 3:
+            print('waiting in 5 seconds')
+            time.sleep(5)
 
 def process_no_toc(page_list, start_index=1, model=None, logger=None):
     page_contents=[]
