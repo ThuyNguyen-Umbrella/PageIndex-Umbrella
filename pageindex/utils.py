@@ -20,14 +20,15 @@ import re
 
 from transformers import AutoTokenizer
 
-from pageindex.models import GPTModel, QwenModel
+from pageindex.models import GPTModel, QwenModel, LlamaModel
 
 # llm_model = GPTModel(model_name="gpt-4o-2024-11-20", api_key=os.getenv("CHATGPT_API_KEY"))
 llm_model = QwenModel()
+# llm_model = LlamaModel()
 
 CHATGPT_API_KEY = os.getenv("CHATGPT_API_KEY")
 
-def count_tokens(text, model="Qwen/Qwen3-4B-Instruct-2507"):
+def count_tokens(text, model="Qwen/Qwen3-8B"):
     if not text:
         return 0
     # enc = tiktoken.encoding_for_model(model)
@@ -161,6 +162,43 @@ def extract_json(content):
         except:
             logging.error("Failed to parse JSON even after cleanup")
             return {}
+    except Exception as e:
+        logging.error(f"Unexpected error while extracting JSON: {e}")
+        return {}
+
+# def extract_json(content):
+#     try:
+#         # Step 1: Extract JSON between ```json ... ```
+#         start_idx = content.find("```json")
+#         if start_idx != -1:
+#             start_idx += 7
+#             end_idx = content.rfind("```")
+#             json_content = content[start_idx:end_idx].strip()
+#         else:
+#             # Step 2: Fallback — extract the *first* {...} or [...] block
+#             match = re.search(r'(\{[\s\S]*?\}|\[[\s\S]*?\])', content)
+#             json_content = match.group(0).strip() if match else content.strip()
+
+#         # Step 3: Replace Python-like syntax
+#         json_content = json_content.replace('None', 'null')
+
+#         # Step 4: Normalize whitespace
+#         json_content = re.sub(r'\s+', ' ', json_content)
+
+#         # Step 5: Remove trailing commas before } or ]
+#         json_content = re.sub(r',\s*([}\]])', r'\1', json_content)
+
+#         # Step 6: Remove anything before first "{" or after last "}" just in case
+#         json_content = re.search(r'(\{.*\}|\[.*\])', json_content).group(0)
+
+#         # Step 7: Parse JSON
+#         return json.loads(json_content)
+
+    except json.JSONDecodeError as e:
+        logging.error(f"Failed to extract JSON: {e}")
+        logging.debug(f"Raw content: {json_content!r}")
+        return {}
+
     except Exception as e:
         logging.error(f"Unexpected error while extracting JSON: {e}")
         return {}
@@ -420,7 +458,7 @@ def add_preface_if_needed(data):
 
 
 
-def get_page_tokens(pdf_path, model="Qwen/Qwen3-4B-Instruct-2507", pdf_parser="PyPDF2"):
+def get_page_tokens(pdf_path, model="Qwen/Qwen3-8B", pdf_parser="PyPDF2"):
     # enc = tiktoken.encoding_for_model(model)
 
     if "gpt" in model.lower() or "openai" in model.lower():
@@ -551,7 +589,7 @@ def remove_structure_text(data):
 def check_token_limit(structure, limit=110000):
     list = structure_to_list(structure)
     for node in list:
-        num_tokens = count_tokens(node['text'], model='Qwen/Qwen3-4B-Instruct-2507')
+        num_tokens = count_tokens(node['text'], model='Qwen/Qwen3-8B')
         if num_tokens > limit:
             print(f"Node ID: {node['node_id']} has {num_tokens} tokens")
             print("Start Index:", node['start_index'])

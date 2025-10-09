@@ -15,14 +15,14 @@ def main(pdf_path):
         # Process PDF file
         # Configure options
         opt = config(
-            model= "Qwen/Qwen3-4B-Instruct-2507",
-            toc_check_page_num= 2,
+            model= "Qwen/Qwen3-8B",
+            toc_check_page_num= 0,
             max_page_num_each_node= 5,
             max_token_num_each_node= 20000,
             if_add_node_id= "yes",
             if_add_node_summary= "no",
             if_add_doc_description= "no",
-            if_add_node_text= "no",
+            if_add_node_text= "yes",
         )
 
         # Process the PDF
@@ -31,7 +31,7 @@ def main(pdf_path):
         
         # Save results
         pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
-        output_dir = './tests/results'
+        output_dir = './results'
         output_file = f'{output_dir}/{pdf_name}_structure.json'
         os.makedirs(output_dir, exist_ok=True)
         

@@ -10,7 +10,7 @@ if __name__ == "__main__":
     parser.add_argument('--pdf_path', type=str, help='Path to the PDF file')
     parser.add_argument('--md_path', type=str, help='Path to the Markdown file')
 
-    parser.add_argument('--model', type=str, default='Qwen/Qwen3-4B-Instruct-2507', help='Model to use')
+    parser.add_argument('--model', type=str, default='Qwen/Qwen3-8B', help='Model to use')
 
     parser.add_argument('--toc-check-pages', type=int, default=0, 
                       help='Number of pages to check for table of contents (PDF only)')
@@ -25,7 +25,7 @@ if __name__ == "__main__":
                       help='Whether to add summary to the node')
     parser.add_argument('--if-add-doc-description', type=str, default='no',
                       help='Whether to add doc description to the doc')
-    parser.add_argument('--if-add-node-text', type=str, default='no',
+    parser.add_argument('--if-add-node-text', type=str, default='yes',
                       help='Whether to add text to the node')
                       
     # Markdown specific arguments
@@ -123,7 +123,7 @@ if __name__ == "__main__":
         
         # Save results
         md_name = os.path.splitext(os.path.basename(args.md_path))[0]    
-        output_dir = './results'
+        output_dir = './tests/results'
         output_file = f'{output_dir}/{md_name}_structure.json'
         os.makedirs(output_dir, exist_ok=True)
         

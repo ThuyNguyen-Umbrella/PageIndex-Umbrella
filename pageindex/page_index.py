@@ -10,11 +10,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 from .utils import *
-from pageindex.models import GPTModel, QwenModel
+from pageindex.models import GPTModel, QwenModel, LlamaModel
 
 
 # llm_model = GPTModel(model_name="gpt-4o-2024-11-20", api_key=os.getenv("CHATGPT_API_KEY"))
 llm_model = QwenModel()
+# llm_model = LlamaModel()
 
 ################### check title in page #########################################################
 async def check_title_appearance(item, page_list, start_index=1, model=None):    
@@ -109,7 +110,6 @@ async def check_title_appearance_in_start_concurrent(structure, page_list, model
 
     return structure
 
-
 def toc_detector_single_page(content, model=None):
     prompt = f"""
     Your job is to detect if there is a table of content provided in the given text.
@@ -126,7 +126,7 @@ def toc_detector_single_page(content, model=None):
     Please note: abstract,summary, notation list, figure list, table list, etc. are not table of contents."""
 
     response = llm_model.generate(prompt)
-    # print('response', response)
+    print('response', response)
     json_content = extract_json(response)    
     return json_content['toc_detected']
 
@@ -568,7 +568,7 @@ def generate_toc_init(part, model=None):
 
     prompt = prompt + '\nGiven text\n:' + part
     response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
-
+    # print("response:", response)
     if finish_reason == 'finished':
          return extract_json(response)
     else:
@@ -960,14 +960,14 @@ async def verify_toc(page_list, list_result, start_index=1, N=None, model=None):
 async def meta_processor(page_list, mode=None, toc_content=None, toc_page_list=None, start_index=1, opt=None, logger=None):
     print(mode)
     print(f'start_index: {start_index}')
-    
+
     if mode == 'process_toc_with_page_numbers':
         toc_with_page_number = process_toc_with_page_numbers(toc_content, toc_page_list, page_list, toc_check_page_num=opt.toc_check_page_num, model=opt.model, logger=logger)
     elif mode == 'process_toc_no_page_numbers':
         toc_with_page_number = process_toc_no_page_numbers(toc_content, toc_page_list, page_list, model=opt.model, logger=logger)
     else:
         toc_with_page_number = process_no_toc(page_list, start_index=start_index, model=opt.model, logger=logger)
-            
+    print("toc_with_number:", toc_with_page_number)         
     toc_with_page_number = [item for item in toc_with_page_number if item.get('physical_index') is not None] 
     
     toc_with_page_number = validate_and_truncate_physical_indices(
@@ -984,6 +984,9 @@ async def meta_processor(page_list, mode=None, toc_content=None, toc_page_list=N
         'accuracy': accuracy,
         'incorrect_results': incorrect_results
     })
+    print('Acc:', accuracy)
+    print('incorrect:', len(incorrect_results))
+    print('mode', mode)
     if accuracy == 1.0 and len(incorrect_results) == 0:
         return toc_with_page_number
     if accuracy > 0.6 and len(incorrect_results) > 0:
@@ -1055,11 +1058,11 @@ async def tree_parser(page_list, opt, doc=None, logger=None):
     valid_toc_items = [item for item in toc_with_page_number if item.get('physical_index') is not None]
     
     toc_tree = post_processing(valid_toc_items, len(page_list))
-    tasks = [
-        process_large_node_recursively(node, page_list, opt, logger=logger)
-        for node in toc_tree
-    ]
-    await asyncio.gather(*tasks)
+    # tasks = [
+    #     process_large_node_recursively(node, page_list, opt, logger=logger)
+    #     for node in toc_tree
+    # ]
+    # await asyncio.gather(*tasks)
     
     return toc_tree
 
@@ -1086,6 +1089,7 @@ def page_index_main(doc, opt=None):
             write_node_id(structure)    
         if opt.if_add_node_text == 'yes':
             add_node_text(structure, page_list)
+            # add_node_text_with_labels(structure, page_list)
         if opt.if_add_node_summary == 'yes':
             if opt.if_add_node_text == 'yes':
                 add_node_text(structure, page_list)

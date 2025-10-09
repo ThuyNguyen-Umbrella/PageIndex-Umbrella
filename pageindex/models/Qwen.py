@@ -2,10 +2,12 @@ from .BaseModel import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import logging
 
-#modelname= Qwen/Qwen3-4B-Instruct-2507
+#modelname = Qwen/Qwen3-4B-Instruct-2507
+#modelName = Qwen/Qwen2.5-7B-Instruct
+
 
 class QwenModel(BaseModel):
-    def __init__(self, model_name="Qwen/Qwen2.5-7B-Instruct"):
+    def __init__(self, model_name="Qwen/Qwen3-8B"):
         super().__init__(model_name)
         self.client = None
 
@@ -29,23 +31,34 @@ class QwenModel(BaseModel):
                 messages,
                 tokenize=False,
                 add_generation_prompt=True,
+                enable_thinking=False
             )
             print('DEVICE:', self.client.device)
             model_inputs = self.tokenizer([text], return_tensors="pt").to(self.client.device)
 
             # conduct text completion
-            generated_ids = self.client.generate(**model_inputs, max_new_tokens=128)
+            generated_ids = self.client.generate(**model_inputs, max_new_tokens=2048)
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
-            response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
 
-            # if include_finish_reason:
-            #     if len(response) >= 4000:
-            #         return response, "max_output_reached"
-            #     else:
-            #         return response, "finished"
+            # parsing thinking content
+            try:
+                # rindex finding 151668 (</think>)
+                index = len(output_ids) - output_ids[::-1].index(151668)
+            except ValueError:
+                index = 0
+
+            # thinking_content = self.tokenizer.decode(output_ids[:index], skip_special_tokens=True).strip("\n")
+            response = self.tokenizer.decode(output_ids[index:], skip_special_tokens=True).strip("\n")
+            # response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
+
+            if include_finish_reason:
+                if len(response) >= 4000:
+                    return response, "max_output_reached"
+                else:
+                    return response, "finished"
             output_tokens = len(self.tokenizer.encode(response))
             if include_finish_reason:
-                if output_tokens >= 8192:
+                if output_tokens >= 30000:
                     return response, "max_output_reached"
                 else:
                     return response, "finished"
@@ -64,13 +77,23 @@ class QwenModel(BaseModel):
                 messages,
                 tokenize=False,
                 add_generation_prompt=True,
+                enable_thinking=False
             )
             model_inputs = self.tokenizer([text], return_tensors="pt").to(self.client.device)
 
             # conduct text completion
-            generated_ids = self.client.generate(**model_inputs, max_new_tokens=8192)
+            generated_ids = self.client.generate(**model_inputs, max_new_tokens=1024)
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
-            response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
+
+            # parsing thinking content
+            try:
+                # rindex finding 151668 (</think>)
+                index = len(output_ids) - output_ids[::-1].index(151668)
+            except ValueError:
+                index = 0
+
+            # thinking_content = self.tokenizer.decode(output_ids[:index], skip_special_tokens=True).strip("\n")
+            response = self.tokenizer.decode(output_ids[index:], skip_special_tokens=True).strip("\n")
 
             return response
 

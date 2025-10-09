@@ -144,6 +144,6 @@ if __name__ == "__main__":
     # parser = argparse.ArgumentParser(description="Extract and index PDF structure.")
     # parser.add_argument("pdf_path", help="Path to the PDF file.")
     # args = parser.parse_args()
-    pdf_file = "tests/pdfs/CDR_Verteidigung_in_der_Tiefe-V1.1_de.pdf"
+    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/11-strategies-of-a-world-class-cybersecurity-operations-center.pdf"
     extract_tree(pdf_file)
 
