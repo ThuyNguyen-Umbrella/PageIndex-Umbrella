@@ -2,7 +2,7 @@
 Der Code basiert auf der Open-Source-Bibliothek PageIndex (siehe [pageindex/README.md](pageindex/README.md)).
 In dieser App wird eine Gliederung (Outline) von PDFs erzeugt.
 
-
+Das ausgewählte Modell ist Qwen/Qwen3-4B-Instruct-2507.(https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507)
 
 ## Bespiele Ergebnisse
 
