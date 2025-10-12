@@ -59,7 +59,7 @@ class QwenModel(BaseModel):
                     return response, "finished"
             output_tokens = len(self.tokenizer.encode(response))
             if include_finish_reason:
-                if output_tokens >= 32000:
+                if output_tokens >= 262144:
                     return response, "max_output_reached"
                 else:
                     return response, "finished"
