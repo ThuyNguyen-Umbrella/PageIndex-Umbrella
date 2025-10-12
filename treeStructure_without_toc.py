@@ -142,30 +142,61 @@ def build_tree_with_toc(doc, outline):
     return nodes
 
 def extract_tree(pdf_path):
-    doc = fitz.open(pdf_path)
-    # metadata = doc.metadata
-    outline = get_outline(pdf_path)
+#     doc = fitz.open(pdf_path)
+#     # metadata = doc.metadata
+#     # outline = get_outline(pdf_path)
+#     for attempt in range(1, 4):
+#         outline = get_outline(pdf_path)
+#         if outline == {'node_id': '0000'}:
+#             pass
+#         else:
+#             print("type of outline:", type(outline))
+#             print("outline:", outline)
+#             return outline
 
-    if not outline:
-        print("can't create outline.")
-        # tree = build_tree_without_toc(pdf_path)
-        # return tree
+#     if not outline:
+#         print("can't create outline.")
+#         # tree = build_tree_without_toc(pdf_path)
+#         # return tree
+#     else:
+#         print("outline was created")
+#         tree = build_tree_with_toc(doc, outline)
+#         file_name = os.path.basename(pdf_path)
+#         tree.insert(0, {"file_name": file_name})
+    doc = fitz.open(pdf_path)
+
+    outline = None
+    for attempt in range(1, 4):
+        outline = get_outline(pdf_path)
+        print("outline", outline)
+        if outline != {'node_id': '0000'} or isinstance(outline, list):
+            print("type of outline:", type(outline))
+            print("outline:", outline)
+            break
+        else:
+            print(f"Attempt {attempt}: outline not ready, retrying...")
+
+    if not outline or isinstance(outline, dict):
+        print("Can't create outline.")
+        return None
     else:
-        print("outline was created")
+        print("Outline was created successfully.")
         tree = build_tree_with_toc(doc, outline)
         file_name = os.path.basename(pdf_path)
         tree.insert(0, {"file_name": file_name})
 
+
+
     # Save results
-        pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
-        output_dir = './tests/results'
-        output_file = f'{output_dir}/{pdf_name}_structure.json'
-        os.makedirs(output_dir, exist_ok=True)
-        
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(tree, f, indent=2)
-        
-        print(f'Tree structure saved to: {output_file}')
+    pdf_name = os.path.splitext(os.path.basename(pdf_path))[0]    
+    output_dir = './tests/results'
+    output_file = f'{output_dir}/{pdf_name}_structure.json'
+    os.makedirs(output_dir, exist_ok=True)
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(tree, f, indent=2)
+    
+    print(f'Tree structure saved to: {output_file}')
     doc.close()
 
 
@@ -178,7 +209,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/anssi_back to basics_hygiene_mobile_phones_1.0.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/P4.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'

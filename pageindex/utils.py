@@ -133,76 +133,89 @@ def get_json_content(response):
     return json_content
          
 
-def extract_json(content):
-    try:
-        # First, try to extract JSON enclosed within ```json and ```
-        start_idx = content.find("```json")
-        if start_idx != -1:
-            start_idx += 7  # Adjust index to start after the delimiter
-            end_idx = content.rfind("```")
-            json_content = content[start_idx:end_idx].strip()
-        else:
-            # If no delimiters, assume entire content could be JSON
-            json_content = content.strip()
-
-        # Clean up common issues that might cause parsing errors
-        json_content = json_content.replace('None', 'null')  # Replace Python None with JSON null
-        json_content = json_content.replace('\n', ' ').replace('\r', ' ')  # Remove newlines
-        json_content = ' '.join(json_content.split())  # Normalize whitespace
-
-        # Attempt to parse and return the JSON object
-        return json.loads(json_content)
-    except json.JSONDecodeError as e:
-        logging.error(f"Failed to extract JSON: {e}")
-        # Try to clean up the content further if initial parsing fails
-        try:
-            # Remove any trailing commas before closing brackets/braces
-            json_content = json_content.replace(',]', ']').replace(',}', '}')
-            return json.loads(json_content)
-        except:
-            logging.error("Failed to parse JSON even after cleanup")
-            return {}
-    except Exception as e:
-        logging.error(f"Unexpected error while extracting JSON: {e}")
-        return {}
-
 # def extract_json(content):
 #     try:
-#         # Step 1: Extract JSON between ```json ... ```
+#         # First, try to extract JSON enclosed within ```json and ```
 #         start_idx = content.find("```json")
 #         if start_idx != -1:
-#             start_idx += 7
+#             start_idx += 7  # Adjust index to start after the delimiter
 #             end_idx = content.rfind("```")
 #             json_content = content[start_idx:end_idx].strip()
 #         else:
-#             # Step 2: Fallback — extract the *first* {...} or [...] block
-#             match = re.search(r'(\{[\s\S]*?\}|\[[\s\S]*?\])', content)
-#             json_content = match.group(0).strip() if match else content.strip()
+#             # If no delimiters, assume entire content could be JSON
+#             json_content = content.strip()
 
-#         # Step 3: Replace Python-like syntax
-#         json_content = json_content.replace('None', 'null')
+#         # Clean up common issues that might cause parsing errors
+#         json_content = json_content.replace('None', 'null')  # Replace Python None with JSON null
+#         json_content = json_content.replace('\n', ' ').replace('\r', ' ')  # Remove newlines
+#         json_content = ' '.join(json_content.split())  # Normalize whitespace
 
-#         # Step 4: Normalize whitespace
-#         json_content = re.sub(r'\s+', ' ', json_content)
-
-#         # Step 5: Remove trailing commas before } or ]
-#         json_content = re.sub(r',\s*([}\]])', r'\1', json_content)
-
-#         # Step 6: Remove anything before first "{" or after last "}" just in case
-#         json_content = re.search(r'(\{.*\}|\[.*\])', json_content).group(0)
-
-#         # Step 7: Parse JSON
+#         # Attempt to parse and return the JSON object
 #         return json.loads(json_content)
+#     except json.JSONDecodeError as e:
+#         logging.error(f"Failed to extract JSON: {e}")
+#         # Try to clean up the content further if initial parsing fails
+#         try:
+#             # Remove any trailing commas before closing brackets/braces
+#             json_content = json_content.replace(',]', ']').replace(',}', '}')
+#             return json.loads(json_content)
+#         except:
+#             logging.error("Failed to parse JSON even after cleanup")
+#             return {}
+#     except Exception as e:
+#         logging.error(f"Unexpected error while extracting JSON: {e}")
+#         return {}
 
-    except json.JSONDecodeError as e:
-        logging.error(f"Failed to extract JSON: {e}")
-        logging.debug(f"Raw content: {json_content!r}")
-        return {}
+def extract_json(content, debug=False):
+    try:
+        # --- Step 1: Extract JSON block if fenced ---
+        start_idx = content.find("```json")
+        if start_idx != -1:
+            start_idx += 7
+            end_idx = content.find("```", start_idx)
+            json_content = content[start_idx:end_idx].strip() if end_idx != -1 else content[start_idx:].strip()
+        else:
+            json_content = content.strip()
+
+        # --- Step 2: Basic cleanup ---
+        json_content = json_content.replace('None', 'null')
+
+        # Remove non-printable ASCII control characters
+        json_content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F]', '', json_content)
+
+        # Normalize spaces
+        json_content = re.sub(r'\s+', ' ', json_content)
+
+        # --- Step 3: Attempt parsing ---
+        try:
+            return json.loads(json_content)
+
+        except json.JSONDecodeError as e:
+            logging.error(f"Initial JSON parse failed: {e}")
+
+            # --- Step 4: Smart fix for unterminated strings or invalid escapes ---
+            # Fix invalid backslashes: replace single "\" not followed by valid escape char
+            json_content = re.sub(r'\\(?!["\\/bfnrtu])', r'\\\\', json_content)
+
+            # Fix unescaped internal quotes (risky but helps with AI outputs)
+            json_content = re.sub(r'(?<!\\)"([a-zA-Z0-9_]+)":', r'"\1":', json_content)
+
+            # Fix trailing commas
+            json_content = json_content.replace(',]', ']').replace(',}', '}')
+
+            # Retry parsing
+            try:
+                return json.loads(json_content)
+            except json.JSONDecodeError as e2:
+                logging.error(f"Failed to extract JSON after cleanup: {e2}")
+                if debug:
+                    pos = e2.pos
+                    logging.error(f"Context around error:\n{json_content[max(0,pos-50):pos+50]}")
+                return {}
 
     except Exception as e:
         logging.error(f"Unexpected error while extracting JSON: {e}")
         return {}
-
 def write_node_id(data, node_id=0):
     if isinstance(data, dict):
         data['node_id'] = str(node_id).zfill(4)

@@ -514,7 +514,7 @@ def generate_toc_continue(toc_content, part, model=None):
 
     The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
 
-    For the title, you need to extract the original title from the text, only fix the space inconsistency.
+    For the title, you need to extract the original title from the text, only fix the space inconsistency. The title muss contain fewer than 20 words.
 
     The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. \
     
@@ -524,7 +524,7 @@ def generate_toc_continue(toc_content, part, model=None):
         [
             {
                 "structure": <structure index, "x.x.x"> (string),
-                "title": <title of the section, keep the original title>,
+                "title": <title of the section, keep the original title> (fewer than 20 words),
                 "physical_index": "<physical_index_X> (keep the format)"
             },
             ...
@@ -533,11 +533,27 @@ def generate_toc_continue(toc_content, part, model=None):
     Directly return the additional part of the final JSON structure. Do not output anything else."""
 
     prompt = prompt + '\nGiven text\n:' + part + '\nPrevious tree structure\n:' + json.dumps(toc_content, indent=2)
-    response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
-    if finish_reason == 'finished':
-        return extract_json(response)
-    else:
-        raise Exception(f'finish reason: {finish_reason}')
+    # response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
+    # if finish_reason == 'finished':
+    #     return extract_json(response)
+    # else:
+    #     raise Exception(f'finish reason: {finish_reason}')
+    for attempt in range(1, 4):
+        response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
+        if finish_reason != 'finished':
+            logging.warning(f"Attempt {attempt}: finish_reason={finish_reason}")
+
+        try:
+            return extract_json(response)
+        except Exception as e:
+            logging.error(f"Attempt {attempt}: Failed to extract JSON ({e})")
+            if attempt < 3:
+                time.sleep(5)
+                logging.info("Retrying...")
+            else:
+                raise RuntimeError(f"Failed after 3 attempts")
+    
+    
     
 ### add verify completeness
 def generate_toc_init(part, model=None):
@@ -547,7 +563,7 @@ def generate_toc_init(part, model=None):
 
     The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
 
-    For the title, you need to extract the original title from the text, only fix the space inconsistency.
+    For the title, extract the original title from the text and only fix spacing inconsistencies. The title should contain fewer than 20 words.
 
     The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
 
@@ -557,29 +573,80 @@ def generate_toc_init(part, model=None):
         [
             {{
                 "structure": <structure index, "x.x.x"> (string),
-                "title": <title of the section, keep the original title>,
+                "title": <title of the section, keep the original title> (fewer than 20 words),
                 "physical_index": "<physical_index_X> (keep the format)"
             }},
             
         ],
 
 
-    Directly return the final JSON structure. Do not output anything else."""
+    Directly return the final JSON structure. Do not output anything else.
+    Return a valid JSON object only. 
+    The output must start with { and end with }. 
+    Do not include any explanations, text, or code fences. 
+    If there is an error, still return a valid JSON structure with an "error" field."""
+
+    # prompt = """
+    # You are an expert in extracting hierarchical tree structures. 
+    # Your task is to generate the tree structure of the document as a **valid JSON array**.
+
+    # - The "structure" field is the numeric system that represents the hierarchy index in the table of contents.  
+    # Example: "1", "1.1", "1.2", etc.
+
+    # - The "title" field must contain the **original title** from the text, only fixing spacing inconsistencies. The title muss contain fewer than 20 words.
+
+    # - The "physical_index" field must be taken from the tag that appears at the start of each section, 
+    # e.g. "<physical_index_3>". Keep that exact format.
+
+    # Return the final result as a **valid JSON array**, like the following example:
+
+    # [
+    # {
+    #     "structure": "1",
+    #     "title": "Introduction",
+    #     "physical_index": "<physical_index_1>"
+    # },
+    # {
+    #     "structure": "1.1",
+    #     "title": "Background",
+    #     "physical_index": "<physical_index_2>"
+    # }
+    # ]
+
+    # Rules:
+    # - Return **JSON only**, with no explanations, markdown, or code fences.
+    # - The output must start with '[' and end with ']'.
+    # - Ensure the JSON is syntactically valid and properly closed.
+    # - If something goes wrong, return a valid JSON array containing an error object, for example:
+    # [
+    #     { "error": "Could not parse document structure" }
+    # ]
+
+    # """
 
     prompt = prompt + '\nGiven text\n:' + part
+    # response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
+    # # print("response:", response)
+    # if finish_reason == 'finished':
+    #     return extract_json(response)
+    # else:
+    #     print(f'finish reason: {finish_reason}')
+
     for attempt in range(1, 4):
+        response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
+        if finish_reason != 'finished':
+            logging.warning(f"Attempt {attempt}: finish_reason={finish_reason}")
+
         try:
-            response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
-            # print("response:", response)
-            if finish_reason == 'finished':
-                return extract_json(response)
-            else:
-                print(f'finish reason: {finish_reason}')
+            return extract_json(response)
         except Exception as e:
-            print(f'fail reason: {e}')
-        if attempt < 3:
-            print('waiting in 5 seconds')
-            time.sleep(5)
+            logging.error(f"Attempt {attempt}: Failed to extract JSON ({e})")
+            if attempt < 3:
+                time.sleep(5)
+                logging.info("Retrying...")
+            else:
+                raise RuntimeError(f"Failed after 3 attempts")
+
 
 def process_no_toc(page_list, start_index=1, model=None, logger=None):
     page_contents=[]
