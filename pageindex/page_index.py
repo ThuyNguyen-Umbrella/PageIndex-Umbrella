@@ -424,7 +424,7 @@ def add_page_offset_to_toc_json(data, offset):
 
 
 
-def page_list_to_group_text(page_contents, token_lengths, max_tokens=20000, overlap_page=1):    
+def page_list_to_group_text(page_contents, token_lengths, max_tokens=50000, overlap_page=1):    
     num_tokens = sum(token_lengths)
     
     if num_tokens <= max_tokens:

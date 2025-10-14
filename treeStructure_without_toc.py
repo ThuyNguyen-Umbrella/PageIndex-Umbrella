@@ -26,7 +26,7 @@ def get_outline(pdf_path):
             model= "Qwen/Qwen3-8B",
             toc_check_page_num= 0,
             max_page_num_each_node= 5,
-            max_token_num_each_node= 20000,
+            max_token_num_each_node= 50000,
             if_add_node_id= "yes",
             if_add_node_summary= "no",
             if_add_doc_description= "no",
