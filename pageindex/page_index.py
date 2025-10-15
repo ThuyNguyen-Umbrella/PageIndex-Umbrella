@@ -558,8 +558,8 @@ def generate_toc_continue(toc_content, part, model=None):
 ### add verify completeness
 def generate_toc_init(part, model=None):
     print('start generate_toc_init')
-    prompt = """
-    You are an expert in extracting hierarchical tree structure, your task is to generate the tree structure of the document.
+    # prompt = """
+    # You are an expert in extracting hierarchical tree structure, your task is to generate the tree structure of the document.
 
     The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
 
