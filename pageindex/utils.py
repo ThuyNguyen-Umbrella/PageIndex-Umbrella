@@ -28,7 +28,7 @@ llm_model = QwenModel()
 
 CHATGPT_API_KEY = os.getenv("CHATGPT_API_KEY")
 
-def count_tokens(text, model="Qwen/Qwen3-8B"):
+def count_tokens(text, model="Qwen/Qwen3-4B-Instruct-2507"):
     if not text:
         return 0
     # enc = tiktoken.encoding_for_model(model)
@@ -471,7 +471,7 @@ def add_preface_if_needed(data):
 
 
 
-def get_page_tokens(pdf_path, model="Qwen/Qwen3-8B", pdf_parser="PyPDF2"):
+def get_page_tokens(pdf_path, model="Qwen/Qwen3-4B-Instruct-2507", pdf_parser="PyMuPDF", HEADER_HEIGHT=80, FOOTER_HEIGHT=80):
     # enc = tiktoken.encoding_for_model(model)
 
     if "gpt" in model.lower() or "openai" in model.lower():
@@ -497,10 +497,37 @@ def get_page_tokens(pdf_path, model="Qwen/Qwen3-8B", pdf_parser="PyPDF2"):
         elif isinstance(pdf_path, str) and os.path.isfile(pdf_path) and pdf_path.lower().endswith(".pdf"):
             doc = pymupdf.open(pdf_path)
         page_list = []
+        # page_l = []
         for page in doc:
             page_text = page.get_text()
             token_length = len(encode_fn(page_text))
             page_list.append((page_text, token_length))
+        # with open('page_list.json', 'w', encoding='utf-8') as f:
+        #     json.dump(page_list, f, indent=2)    
+
+        # for page in doc:
+        #     page_height = page.rect.height
+        #     # print("page_height")
+
+        #     # Lấy toàn bộ text blocks [(x0, y0, x1, y1, text, block_no, line_no, word_no), ...]
+        #     blocks = page.get_text("blocks")
+
+        #     # Giữ lại các block KHÔNG nằm trong header/footer
+        #     body_texts = []
+        #     for b in blocks:
+        #         x0, y0, x1, y1, text, *_ = b
+        #         if y1 < HEADER_HEIGHT:
+        #             continue  # bỏ qua header
+        #         if y0 > page_height - FOOTER_HEIGHT:
+        #             continue  # bỏ qua footer
+        #         body_texts.append(text.strip())
+
+        #     # Nối các phần văn bản lại
+        #     page_text = "\n".join(body_texts)
+
+        #     # Đếm token
+        #     token_length = len(encode_fn(page_text))
+        #     page_list.append((page_text, token_length))
         return page_list
     else:
         raise ValueError(f"Unsupported PDF parser: {pdf_parser}")
@@ -602,7 +629,7 @@ def remove_structure_text(data):
 def check_token_limit(structure, limit=110000):
     list = structure_to_list(structure)
     for node in list:
-        num_tokens = count_tokens(node['text'], model='Qwen/Qwen3-8B')
+        num_tokens = count_tokens(node['text'], model='Qwen/Qwen3-4B-Instruct-2507')
         if num_tokens > limit:
             print(f"Node ID: {node['node_id']} has {num_tokens} tokens")
             print("Start Index:", node['start_index'])

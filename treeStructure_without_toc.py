@@ -23,7 +23,7 @@ def get_outline(pdf_path):
         # Process PDF file
         # Configure options
         opt = config(
-            model= "Qwen/Qwen3-8B",
+            model= "Qwen/Qwen3-4B-Instruct-2507",
             toc_check_page_num= 0,
             max_page_num_each_node= 5,
             max_token_num_each_node= 50000,
@@ -63,11 +63,6 @@ def build_tree_with_toc(doc, outline):
         escaped = re.escape(clean)
         flexible = re.sub(r"\\ ", r"\\s+", escaped)
         pattern_str = r"(?:\d+(?:\.\d+)*\.\s*)?" + flexible
-
-        # return re.compile(
-        #     r"(?:\d+(?:\.\d+)*\.\s*)?" + re.escape(clean),
-        #     flags=re.MULTILINE
-        # )
         return re.compile(pattern_str, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL)
     
     def get_level(structure_str):
@@ -142,33 +137,13 @@ def build_tree_with_toc(doc, outline):
     return nodes
 
 def extract_tree(pdf_path):
-#     doc = fitz.open(pdf_path)
-#     # metadata = doc.metadata
-#     # outline = get_outline(pdf_path)
-#     for attempt in range(1, 4):
-#         outline = get_outline(pdf_path)
-#         if outline == {'node_id': '0000'}:
-#             pass
-#         else:
-#             print("type of outline:", type(outline))
-#             print("outline:", outline)
-#             return outline
 
-#     if not outline:
-#         print("can't create outline.")
-#         # tree = build_tree_without_toc(pdf_path)
-#         # return tree
-#     else:
-#         print("outline was created")
-#         tree = build_tree_with_toc(doc, outline)
-#         file_name = os.path.basename(pdf_path)
-#         tree.insert(0, {"file_name": file_name})
     doc = fitz.open(pdf_path)
 
     outline = None
     for attempt in range(1, 4):
         outline = get_outline(pdf_path)
-        print("outline", outline)
+        # print("outline", outline)
         if outline != {'node_id': '0000'} or isinstance(outline, list):
             print("type of outline:", type(outline))
             print("outline:", outline)
@@ -194,7 +169,7 @@ def extract_tree(pdf_path):
     os.makedirs(output_dir, exist_ok=True)
     
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(tree, f, indent=2)
+        json.dump(tree, f, ensure_ascii=False, indent=2)
     
     print(f'Tree structure saved to: {output_file}')
     doc.close()
@@ -209,7 +184,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/P4.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/voorbij+de+elearning_0125_ENG.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'

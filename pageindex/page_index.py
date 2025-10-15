@@ -424,7 +424,7 @@ def add_page_offset_to_toc_json(data, offset):
 
 
 
-def page_list_to_group_text(page_contents, token_lengths, max_tokens=50000, overlap_page=1):    
+def page_list_to_group_text(page_contents, token_lengths, max_tokens=5000, overlap_page=1):    
     num_tokens = sum(token_lengths)
     
     if num_tokens <= max_tokens:
@@ -507,30 +507,71 @@ def remove_first_physical_index_section(text):
 ### add verify completeness
 def generate_toc_continue(toc_content, part, model=None):
     print('start generate_toc_continue')
-    prompt = """
-    You are an expert in extracting hierarchical tree structure.
-    You are given a tree structure of the previous part and the text of the current part.
-    Your task is to continue the tree structure from the previous part to include the current part.
+    # prompt = """
+    # You are an expert in extracting hierarchical tree structure.
+    # You are given a tree structure of the previous part and the text of the current part.
+    # Your task is to continue the tree structure from the previous part to include the current part.
 
-    The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
+    # The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
 
-    For the title, you need to extract the original title from the text, only fix the space inconsistency. The title muss contain fewer than 20 words.
+    # For the title, you need to extract the original title from the text, only fix the space inconsistency. The title muss contain fewer than 20 words.
 
-    The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. \
+    # The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
     
-    For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
+    # For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
 
-    The response should be in the following format. 
-        [
-            {
-                "structure": <structure index, "x.x.x"> (string),
-                "title": <title of the section, keep the original title> (fewer than 20 words),
-                "physical_index": "<physical_index_X> (keep the format)"
-            },
-            ...
-        ]    
+    # The response should be in the following format. 
+    #     [
+    #         {
+    #             "structure": <structure index, "x.x.x"> (string),
+    #             "title": <title of the section, keep the original title> (fewer than 20 words),
+    #             "physical_index": "<physical_index_X> (keep the format)"
+    #         },
+    #         ...
+    #     ]    
 
-    Directly return the additional part of the final JSON structure. Do not output anything else."""
+    # Directly return the additional part of the final JSON structure. Do not output anything else."""
+
+    prompt = """
+    You are an expert in extracting hierarchical tree structures. 
+    You are given a tree structure of the previous part and the text of the current part.
+    Your task is to continue the tree structure from the previous part to include the current part as a **valid JSON array**.
+
+    The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
+
+    - The "structure" field is the numeric system that represents the hierarchy index in the table of contents.  
+    Example: "1", "1.1", "1.2", "1.1.1", "1.1.1.1" etc.
+
+    - The "title" field must contain the **original title** from the text, only fixing spacing inconsistencies. The title muss contain fewer than 20 words.
+
+    - The "physical_index" field must be taken from the tag that appears at the start of each section, 
+    e.g. "<physical_index_3>". Keep that exact format.
+
+    Return the final result as a **valid JSON array**, like the following example:
+
+    [
+    {
+        "structure": "1",
+        "title": "Introduction",
+        "physical_index": "<physical_index_1>"
+    },
+    {
+        "structure": "1.1",
+        "title": "Background",
+        "physical_index": "<physical_index_2>"
+    }
+    ]
+
+    Rules:
+    - Return **JSON only**, with no explanations, markdown, or code fences.
+    - The output must start with '[' and end with ']'.
+    - Ensure the JSON is syntactically valid and properly closed.
+    - If something goes wrong, return a valid JSON array containing an error object, for example:
+    [
+        { "error": "Could not parse document structure" }
+    ]
+
+    """
 
     prompt = prompt + '\nGiven text\n:' + part + '\nPrevious tree structure\n:' + json.dumps(toc_content, indent=2)
     # response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
@@ -561,68 +602,71 @@ def generate_toc_init(part, model=None):
     # prompt = """
     # You are an expert in extracting hierarchical tree structure, your task is to generate the tree structure of the document.
 
-    The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
+    # The structure variable is the numeric system which represents the index of the hierarchy section in the table of contents. For example, the first section has structure index 1, the first subsection has structure index 1.1, the second subsection has structure index 1.2, etc.
 
-    For the title, extract the original title from the text and only fix spacing inconsistencies. The title should contain fewer than 20 words.
+    # For the title, extract the original title from the text and only fix spacing inconsistencies. The title should contain fewer than 20 words.
 
-    The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
+    # The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
 
-    For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
+    # For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
 
-    The response should be in the following format. 
-        [
-            {{
-                "structure": <structure index, "x.x.x"> (string),
-                "title": <title of the section, keep the original title> (fewer than 20 words),
-                "physical_index": "<physical_index_X> (keep the format)"
-            }},
+
+
+    # The response should be in the following format. 
+    #     [
+    #         {{
+    #             "structure": <structure index, "x.x.x"> (string),
+    #             "title": <title of the section, keep the original title> (fewer than 20 words),
+    #             "physical_index": "<physical_index_X> (keep the format)"
+    #         }},
             
-        ],
+    #     ],
 
 
-    Directly return the final JSON structure. Do not output anything else.
-    Return a valid JSON object only. 
-    The output must start with { and end with }. 
-    Do not include any explanations, text, or code fences. 
-    If there is an error, still return a valid JSON structure with an "error" field."""
+    # Directly return the final JSON structure. Do not output anything else.
+    # Return a valid JSON object only. 
+    # The output must start with { and end with }. 
+    # Do not include any explanations, text, or code fences. 
+    # If there is an error, still return a valid JSON structure with an "error" field."""
 
-    # prompt = """
-    # You are an expert in extracting hierarchical tree structures. 
-    # Your task is to generate the tree structure of the document as a **valid JSON array**.
+    prompt = """
+    You are an expert in extracting hierarchical tree structures. 
+    Your task is to generate the tree structure of the document as a **valid JSON array**.
 
-    # - The "structure" field is the numeric system that represents the hierarchy index in the table of contents.  
-    # Example: "1", "1.1", "1.2", etc.
+    - The "structure" field is the numeric system that represents the hierarchy index in the table of contents.  
+    Example: "1", "1.1", "1.2", "1.1.1", "1.1.1.1" etc.
 
-    # - The "title" field must contain the **original title** from the text, only fixing spacing inconsistencies. The title muss contain fewer than 20 words.
+    - The "title" field must contain the **original title** from the text, only fixing spacing inconsistencies. The title muss contain fewer than 20 words.
 
-    # - The "physical_index" field must be taken from the tag that appears at the start of each section, 
-    # e.g. "<physical_index_3>". Keep that exact format.
+    - The "physical_index" field must be taken from the tag that appears at the start of each section, 
+    e.g. "<physical_index_3>". Keep that exact format.
 
-    # Return the final result as a **valid JSON array**, like the following example:
+    Return the final result as a **valid JSON array**, like the following example:
 
-    # [
-    # {
-    #     "structure": "1",
-    #     "title": "Introduction",
-    #     "physical_index": "<physical_index_1>"
-    # },
-    # {
-    #     "structure": "1.1",
-    #     "title": "Background",
-    #     "physical_index": "<physical_index_2>"
-    # }
-    # ]
+    [
+    {
+        "structure": "1",
+        "title": "Introduction",
+        "physical_index": "<physical_index_1>"
+    },
+    {
+        "structure": "1.1",
+        "title": "Background",
+        "physical_index": "<physical_index_2>"
+    }
+    ]
 
-    # Rules:
-    # - Return **JSON only**, with no explanations, markdown, or code fences.
-    # - The output must start with '[' and end with ']'.
-    # - Ensure the JSON is syntactically valid and properly closed.
-    # - If something goes wrong, return a valid JSON array containing an error object, for example:
-    # [
-    #     { "error": "Could not parse document structure" }
-    # ]
+    Rules:
+    - Return **JSON only**, with no explanations, markdown, or code fences.
+    - The output must start with '[' and end with ']'.
+    - Ensure the JSON is syntactically valid and properly closed.
+    - If something goes wrong, return a valid JSON array containing an error object, for example:
+    [
+        { "error": "Could not parse document structure" }
+    ]
 
-    # """
+    """
+    # print("part:", part)
 
     prompt = prompt + '\nGiven text\n:' + part
     # response, finish_reason = llm_model.generate(prompt, include_finish_reason=True)
@@ -638,6 +682,7 @@ def generate_toc_init(part, model=None):
             logging.warning(f"Attempt {attempt}: finish_reason={finish_reason}")
 
         try:
+            # print("response:", response)
             return extract_json(response)
         except Exception as e:
             logging.error(f"Attempt {attempt}: Failed to extract JSON ({e})")
@@ -656,11 +701,17 @@ def process_no_toc(page_list, start_index=1, model=None, logger=None):
         page_contents.append(page_text)
         token_lengths.append(count_tokens(page_text, model))
     group_texts = page_list_to_group_text(page_contents, token_lengths)
+    # print("group_texts[0]:", group_texts[0])
+    # print("-------------------")
+    # print("group_texts[1]:", group_texts[1])
     logger.info(f'len(group_texts): {len(group_texts)}')
 
     toc_with_page_number= generate_toc_init(group_texts[0], model)
+    # print("toc_with_page_number:", toc_with_page_number)
     for group_text in group_texts[1:]:
+        # print("------------------")
         toc_with_page_number_additional = generate_toc_continue(toc_with_page_number, group_text, model)    
+        # print("toc_with_continue:", toc_with_page_number_additional)
         toc_with_page_number.extend(toc_with_page_number_additional)
     logger.info(f'generate_toc: {toc_with_page_number}')
 
