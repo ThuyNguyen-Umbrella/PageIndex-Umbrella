@@ -124,8 +124,8 @@ def build_tree_with_toc(doc, outline):
 
     return nodes
 
-def extract_tree(pdf_path):
-    doc = fitz.open(pdf_path)
+def extract_tree(pdf_path, doc):
+    # doc = fitz.open(pdf_path)
     # metadata = doc.metadata
     outline = get_outline(doc)
 

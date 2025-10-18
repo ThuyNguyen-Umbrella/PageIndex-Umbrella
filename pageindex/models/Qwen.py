@@ -19,18 +19,17 @@ class QwenModel(BaseModel):
             self.client = AutoModelForCausalLM.from_pretrained(
                 self.model_name, dtype="auto", device_map="auto"
             )
-#             self.client = Qwen3VLForConditionalGeneration.from_pretrained(
-#     "Qwen/Qwen3-VL-8B-Instruct", dtype="auto", device_map="auto"
-# )
 
     def generate(self, prompt, chat_history=None, include_finish_reason=False):
         self._load_model()
         try:
-            if chat_history:
-                messages = chat_history
-                messages.append({"role": "user", "content": prompt})
-            else:
-                messages = [{"role": "user", "content": prompt}]
+            # if chat_history:
+            #     messages = chat_history
+            #     messages.append({"role": "user", "content": prompt})
+            # else:
+            #     messages = [{"role": "user", "content": prompt}]
+
+            messages = [{"role": "user", "content": prompt}]
 
             text = self.tokenizer.apply_chat_template(
                 messages,
@@ -42,28 +41,28 @@ class QwenModel(BaseModel):
             model_inputs = self.tokenizer([text], return_tensors="pt").to(self.client.device)
 
             # conduct text completion
-            generated_ids = self.client.generate(**model_inputs, max_new_tokens=100000)
+            generated_ids = self.client.generate(**model_inputs, max_new_tokens=250000)
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
 
-            # # parsing thinking content
-            # try:
-            #     # rindex finding 151668 (</think>)
-            #     index = len(output_ids) - output_ids[::-1].index(151668)
-            # except ValueError:
-            #     index = 0
+            # parsing thinking content
+            try:
+                # rindex finding 151668 (</think>)
+                index = len(output_ids) - output_ids[::-1].index(151668)
+            except ValueError:
+                index = 0
 
             # thinking_content = self.tokenizer.decode(output_ids[:index], skip_special_tokens=True).strip("\n")
             # response = self.tokenizer.decode(output_ids[index:], skip_special_tokens=True).strip("\n")
             response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
 
             if include_finish_reason:
-                if len(response) >= 250000:
+                if len(response) > 250000:
                     return response, "max_output_reached"
                 else:
                     return response, "finished"
             output_tokens = len(self.tokenizer.encode(response))
             if include_finish_reason:
-                if output_tokens >= 250000:
+                if output_tokens > 250000:
                     return response, "max_output_reached"
                 else:
                     return response, "finished"
@@ -81,13 +80,13 @@ class QwenModel(BaseModel):
             text = self.tokenizer.apply_chat_template(
                 messages,
                 tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=False
+                add_generation_prompt=True
+                # enable_thinking=False
             )
             model_inputs = self.tokenizer([text], return_tensors="pt").to(self.client.device)
 
             # conduct text completion
-            generated_ids = self.client.generate(**model_inputs, max_new_tokens=100000)
+            generated_ids = self.client.generate(**model_inputs, max_new_tokens=250000)
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist() 
 
             # parsing thinking content

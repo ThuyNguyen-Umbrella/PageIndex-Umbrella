@@ -69,6 +69,10 @@ def build_tree_with_toc(doc, outline):
         return len(structure_str.split("."))
     
     def get_text_by_title(start_page, end_page, title, next_title=None):
+        # print("start_page:", start_page)
+        # print("end_page:", end_page)
+        start_page = int(start_page)
+        end_page = int(end_page)
         text = "".join(full_text_by_page[start_page - 1:end_page])
         norm_text = normalize(text)
         # print("text:", norm_text)
@@ -136,9 +140,9 @@ def build_tree_with_toc(doc, outline):
 
     return nodes
 
-def extract_tree(pdf_path):
+def extract_tree(pdf_path, doc):
 
-    doc = fitz.open(pdf_path)
+    # doc = fitz.open(pdf_path)
 
     outline = None
     for attempt in range(1, 4):
@@ -184,7 +188,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/voorbij+de+elearning_0125_ENG.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/phishing.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'

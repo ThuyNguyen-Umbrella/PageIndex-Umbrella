@@ -11,10 +11,12 @@ def process_pdf(pdf_path):
     # Check if the PDF has a table of contents (outline)
     if doc.get_toc(simple=True):
         print('PDF has an outline.')
-        treeStructure_within_toc.extract_tree(pdf_path)
+        treeStructure_within_toc.extract_tree(pdf_path, doc)
     else:
         print('PDF has no outline.')
-        treeStructure_without_toc.extract_tree(pdf_path)
+        treeStructure_without_toc.extract_tree(pdf_path, doc)
+    
+    # doc.close()
 
 def main(folder_path):
     """Process all PDF files within a given folder."""

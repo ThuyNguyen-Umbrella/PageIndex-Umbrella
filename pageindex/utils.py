@@ -20,11 +20,12 @@ import re
 
 from transformers import AutoTokenizer
 
-from pageindex.models import GPTModel, QwenModel, LlamaModel
+from pageindex.models import GPTModel, QwenModel, LlamaModel, MistralModel
 
 # llm_model = GPTModel(model_name="gpt-4o-2024-11-20", api_key=os.getenv("CHATGPT_API_KEY"))
 llm_model = QwenModel()
 # llm_model = LlamaModel()
+# llm_model = MistralModel()
 
 CHATGPT_API_KEY = os.getenv("CHATGPT_API_KEY")
 

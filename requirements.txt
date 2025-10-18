@@ -6,3 +6,6 @@ tiktoken==0.11.0
 pyyaml==6.0.2
 fitz
 transformers
+torch 
+accelerate
+sentencepiece
