@@ -425,7 +425,7 @@ def add_page_offset_to_toc_json(data, offset):
 
 
 
-def page_list_to_group_text(page_contents, token_lengths, max_tokens=20000, overlap_page=1):    
+def page_list_to_group_text(page_contents, token_lengths, max_tokens=5000, overlap_page=1):    
     num_tokens = sum(token_lengths)
     
     if num_tokens <= max_tokens:
@@ -521,8 +521,12 @@ def generate_toc_continue(toc_content, part, model=None):
     The provided text contains tags like <physical_index_X> and <physical_index_X> to indicate the start and end of page X. 
 
     If a page has no title, do not invent one — just skip that page.
+
+    Absolutely do not make up a title yourself.
     
     For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
+
+    Extract exactly the physical index for the text that has a title. This is very important.
 
     The tree structure must have a physical_index arranged in ascending order. This is very important.
 
@@ -617,7 +621,11 @@ def generate_toc_init(part, model=None):
 
     If a page has no title, do not invent one — just skip that page.
 
+    Absolutely do not make up a title yourself.
+
     For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
+
+    Extract exactly the physical index for the text that has a title. This is very important.
 
     The tree structure must have a physical_index arranged in ascending order. This is very important.
 

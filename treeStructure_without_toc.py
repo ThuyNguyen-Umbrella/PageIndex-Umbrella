@@ -100,7 +100,7 @@ def build_tree_with_toc(doc, outline):
         return norm_text[start_pos:].strip()
     
     for i, value in enumerate(outline):
-        print('type of value', type(value))
+        # print('type of value', type(value))
         # print('value:', value)
 
         if isinstance(value, str):
@@ -140,9 +140,9 @@ def build_tree_with_toc(doc, outline):
 
     return nodes
 
-def extract_tree(pdf_path, doc):
+def extract_tree(pdf_path):
 
-    # doc = fitz.open(pdf_path)
+    doc = fitz.open(pdf_path)
 
     outline = None
     for attempt in range(1, 4):
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/phishing.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/BrewersConjecture-SigAct.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'
