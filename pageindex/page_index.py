@@ -522,11 +522,17 @@ def generate_toc_continue(toc_content, part, model=None):
 
     If a page has no title, do not invent one — just skip that page.
 
-    Absolutely do not make up a title yourself.
+    Absolutely do not make up a title yourself. 
+    
+    Do not merge the two titles using “and”; keep each original title unchanged.
+    For example, the titles “Dedicated OpenFlow switches” and “OpenFlow-enabled switches” are two separate titles.
+    Do not write them as “Dedicated OpenFlow switches and OpenFlow-enabled switches.”
     
     For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
 
     Extract exactly the physical index for the text that has a title. This is very important.
+
+    Take the exact physical_index, do not make up or invent the physical_index.
 
     The tree structure must have a physical_index arranged in ascending order. This is very important.
 
@@ -621,11 +627,17 @@ def generate_toc_init(part, model=None):
 
     If a page has no title, do not invent one — just skip that page.
 
-    Absolutely do not make up a title yourself.
+    Absolutely do not make up a title yourself. 
+    
+    Do not merge the two titles using “and”; keep each original title unchanged.
+    For example, the titles “Dedicated OpenFlow switches” and “OpenFlow-enabled switches” are two separate titles.
+    Do not write them as “Dedicated OpenFlow switches and OpenFlow-enabled switches.”
 
     For the physical_index, you need to extract the physical index of the start of the section from the text. Keep the <physical_index_X> format.
 
     Extract exactly the physical index for the text that has a title. This is very important.
+
+    Take the exact physical_index, do not make up or invent the physical_index.
 
     The tree structure must have a physical_index arranged in ascending order. This is very important.
 

@@ -73,8 +73,17 @@ def build_tree_with_toc(doc, outline):
         # print("end_page:", end_page)
         start_page = int(start_page)
         end_page = int(end_page)
-        text = "".join(full_text_by_page[start_page - 1:end_page])
+        text_page = "".join(full_text_by_page[start_page - 1:end_page])
+
+
+        start_idx = max(0, start_page - 2)
+        end_idx = min(len(full_text_by_page), end_page + 1)
+
+        text = "".join(full_text_by_page[start_idx:end_idx])
+
+
         norm_text = normalize(text)
+        norm_textpage = normalize(text_page)
         # print("text:", norm_text)
         norm_title = normalize(title)
         # print("title:", norm_title)
@@ -84,20 +93,37 @@ def build_tree_with_toc(doc, outline):
         pattern_title = make_pattern(norm_title)
         match_title = pattern_title.search(norm_text)
 
+        # matches = list(pattern_title.finditer(norm_text))
+        # if not matches:
+        #     match_title = None
+        # elif len(matches) >= 2:
+        #     match_title = matches[1]
+        # else:
+        #     match_title = matches[0]
+
         if not match_title:
-            return norm_text.strip()
+            return norm_textpage.strip()
         
         start_pos = match_title.start()
 
         if norm_next:
 
             pattern_next = make_pattern(norm_next)
-            match_next = pattern_next.search(norm_text, match_title.end())
+            # match_next = pattern_next.search(norm_text, match_title.end())
+            matches = list(pattern_next.finditer(norm_text))
+            if not matches:
+                match_next = None
+            elif len(matches) >= 2:
+                match_next = matches[1]
+            else:
+                match_next = matches[0]
+
             if match_next:
                 return norm_text[start_pos:match_next.start()].strip()
 
 
-        return norm_text[start_pos:].strip()
+        # return norm_text[start_pos:].strip()
+        return norm_textpage.strip()
     
     for i, value in enumerate(outline):
         # print('type of value', type(value))
@@ -140,9 +166,9 @@ def build_tree_with_toc(doc, outline):
 
     return nodes
 
-def extract_tree(pdf_path):
+def extract_tree(pdf_path, doc):
 
-    doc = fitz.open(pdf_path)
+    # doc = fitz.open(pdf_path)
 
     outline = None
     for attempt in range(1, 4):
@@ -188,7 +214,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
 
     # main(args.pdf_path)
-    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/BrewersConjecture-SigAct.pdf'
+    pdf_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/voorbij+de+elearning_0125_ENG.pdf'
     extract_tree(pdf_path)
     # print(get_outline(pdf_path))
     # outline_path = '/home/thuyn/pageIndex/PageIndex-Umbrella/tests/results/phishing_structure.json'

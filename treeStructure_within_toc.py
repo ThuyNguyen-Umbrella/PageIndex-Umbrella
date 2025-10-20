@@ -146,7 +146,7 @@ def extract_tree(pdf_path, doc):
         os.makedirs(output_dir, exist_ok=True)
         
         with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(tree, f, indent=2)
+            json.dump(tree, f, ensure_ascii=False, indent=2)
         
         print(f'Tree structure saved to: {output_file}')
     doc.close()
@@ -154,7 +154,7 @@ def extract_tree(pdf_path, doc):
 
 if __name__ == "__main__":
   
-    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/11-strategies-of-a-world-class-cybersecurity-operations-center.pdf"
+    pdf_file = "/home/thuyn/pageIndex/PageIndex-Umbrella/tests/pdfs/data-management-guidebook-for-managers.pdf"
     extract_tree(pdf_file)
     # doc = fitz.open(pdf_file)
     # tree = get_outline(doc)
